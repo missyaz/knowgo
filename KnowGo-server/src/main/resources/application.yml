@@ -1,0 +1,11 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: @application.name@
+  #saa配置
+  ai:
+    dashscope:
+      api-key: sk-f65546009b6e44fda3fa164c659d53d7
+      base-url: https://dashscope.aliyuncs.com/compatible-mode/v1
