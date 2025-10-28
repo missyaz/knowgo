@@ -3,13 +3,20 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.fw</groupId>
-        <artifactId>KnowGo-common</artifactId>
+        <artifactId>KnowGo</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>KnowGo-file</artifactId>
-    <packaging>jar</packaging>
-    <description>公共模块里的file模块，包含文件上传、下载等文件操作的内容</description>
+    <modules>
+        <module>KnowGo-document</module>
+    </modules>
+
+
+
+    <artifactId>KnowGo-business</artifactId>
+    <packaging>pom</packaging>
+    <description>业务模块，提供业务的相关操作</description>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -20,14 +27,6 @@
             <artifactId>junit</artifactId>
             <version>3.8.1</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tika</groupId>
-            <artifactId>tika-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tika</groupId>
-            <artifactId>tika-parsers-standard-package</artifactId>
         </dependency>
     </dependencies>
 </project>
