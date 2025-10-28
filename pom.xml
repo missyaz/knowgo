@@ -6,6 +6,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>KnowGo-server</module>
+        <module>KnowGo-common</module>
     </modules>
     <version>1.0-SNAPSHOT</version>
     <name>KnowGo Maven Webapp</name>
@@ -75,6 +76,8 @@
         <lombook.version>1.18.28</lombook.version>
         <hutool.version>5.8.28</hutool.version>
         <jasypt.version>3.0.5</jasypt.version>
+        <tika-core.version>3.2.3</tika-core.version>
+        <mapstruct.version>1.6.0.Beta1</mapstruct.version>
     </properties>
 
     <dependencyManagement>
@@ -116,13 +119,32 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
-                <type>jar</type>
             </dependency>
             <!-- Jasypt BOM -->
             <dependency>
                 <groupId>com.github.ulisesbocchio</groupId>
                 <artifactId>jasypt-spring-boot-starter</artifactId>
                 <version>${jasypt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tika</groupId>
+                <artifactId>tika-core</artifactId>
+                <version>${tika-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fw</groupId>
+                <artifactId>KnowGo-base</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fw</groupId>
+                <artifactId>KnowGo-web</artifactId>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
