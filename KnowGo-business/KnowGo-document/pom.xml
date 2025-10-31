@@ -8,13 +8,29 @@
     </parent>
 
     <artifactId>KnowGo-document</artifactId>
-    <description>文档业务模块，提供文档的相关业务操作</description>
     <packaging>jar</packaging>
+    <description>业务模块-文档模块，提供文档的相关业务功能</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-file</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
     </dependencies>
 </project>

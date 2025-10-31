@@ -11,8 +11,6 @@
         <module>KnowGo-document</module>
     </modules>
 
-
-
     <artifactId>KnowGo-business</artifactId>
     <packaging>pom</packaging>
     <description>业务模块，提供业务的相关操作</description>
