@@ -7,4 +7,4 @@ spring:
   #saa配置
   ai:
     dashscope:
-      api-key: ${aliKey}
+      api-key: ${Qwen.apiKey}

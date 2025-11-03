@@ -1,0 +1,10 @@
+server:
+  port: 8003
+
+spring:
+  application:
+    name: @application.name@
+
+logging:
+  level:
+    root: info

@@ -26,13 +26,15 @@ public class DocumentController {
 
     private final FileService fileService;
 
-    @PostMapping("/parseDocument")
-    public Result<Void> parseDocument(@RequestParam("file")MultipartFile file) {
+    @PostMapping("/parse")
+    public Result<Boolean> parseDocument(@RequestParam("file")MultipartFile file) {
         try {
             String text = fileService.extractText(file.getInputStream());
-            return Result.success();
+            // TODO: 将提取到的文本存入向量数据库
+            return Result.success(true);
         } catch (Exception e) {
-            return Result.error();
+            log.error("parse document error", e);
+            return Result.success(false);
         }
     }
 }

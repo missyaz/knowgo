@@ -3,6 +3,7 @@ package com.fw.know.go.file.configuration;
 import com.fw.know.go.file.FileService;
 import com.fw.know.go.file.FileServiceImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 public class FileConfiguration {
 
     @Bean
-    @ConditionalOnBean(FileService.class)
+    @ConditionalOnMissingBean
     public FileService fileService(){
         return new FileServiceImpl();
     }

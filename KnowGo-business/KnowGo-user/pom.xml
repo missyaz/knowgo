@@ -3,28 +3,21 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.fw</groupId>
-        <artifactId>KnowGo-common</artifactId>
+        <artifactId>KnowGo-business</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>KnowGo-web</artifactId>
+    <artifactId>KnowGo-user</artifactId>
     <packaging>jar</packaging>
 
-    <name>KnowGo-web</name>
+    <name>KnowGo-user</name>
     <url>http://maven.apache.org</url>
-    <description>公共模块里的web模块，包含控制器的全局异常处理，Web全局响应结构等Web相关的内容</description>
 
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.fw</groupId>
-            <artifactId>KnowGo-base</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

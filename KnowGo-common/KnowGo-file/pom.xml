@@ -11,6 +11,8 @@
     <packaging>jar</packaging>
     <description>公共模块里的file模块，包含文件上传、下载等文件操作的内容</description>
     <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
