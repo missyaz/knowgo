@@ -8,3 +8,13 @@ spring:
   ai:
     dashscope:
       api-key: ${Qwen.apiKey}
+    vectorstore:
+      type: chroma
+      chroma:
+        client:
+          host: http://192.168.1.14
+          port: 8000
+        tenant-name: knowgo
+        database-name: knowgo
+        collection-name: knowgo
+        initialize-schema: true
