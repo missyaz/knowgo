@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.InputStream;
+import static com.fw.know.go.document.infrastructure.exception.DocumentErrorCode.DOCUMENT_EMPTY;
 
 /**
  * @Classname DocumentController
@@ -28,6 +28,9 @@ public class DocumentController {
 
     @PostMapping("/parse")
     public Result<Boolean> parseDocument(@RequestParam("file")MultipartFile file) {
+        if (file.isEmpty()){
+            return Result.error(DOCUMENT_EMPTY.getCode(), DOCUMENT_EMPTY.getMessage());
+        }
         try {
             String text = fileService.extractText(file.getInputStream());
             // TODO: 将提取到的文本存入向量数据库

@@ -12,6 +12,11 @@ import lombok.Getter;
 public enum DocumentErrorCode implements ErrorCode {
 
     /**
+     * 文档为空
+     */
+    DOCUMENT_EMPTY("DOCUMENT_EMPTY", "上传的文档为空"),
+
+    /**
      * 解析文档失败
      */
     PARSE_ERROR("DOCUMENT_PARSE_ERROR", "解析文档失败");

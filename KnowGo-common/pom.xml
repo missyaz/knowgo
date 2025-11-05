@@ -16,6 +16,8 @@
         <module>KnowGo-web</module>
         <module>KnowGo-base</module>
         <module>KnowGo-file</module>
+        <module>KnowGo-datasource</module>
+        <module>KnowGo-ai</module>
     </modules>
 
     <properties>

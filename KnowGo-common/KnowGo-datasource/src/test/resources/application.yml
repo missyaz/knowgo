@@ -1,0 +1,13 @@
+# 测试用配置
+# 向量数据库配置
+vector-datasource:
+  host: http://117.72.194.214
+  port: 8000
+  collection-name: test_collection
+  initialize-schema: true
+
+# Ai 配置
+know:
+  go:
+    ai:
+      api-key: ${KNOW_GO_AI_API_KEY}
