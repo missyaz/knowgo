@@ -17,7 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class MultiResponse<T> extends BaseResponse implements Serializable {
+public class MultiResponse<T> extends BaseResponse {
 
     @Serial
     private static final long serialVersionUID = 1L;

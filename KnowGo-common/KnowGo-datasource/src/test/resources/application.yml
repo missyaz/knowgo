@@ -1,13 +1,21 @@
 # 测试用配置
 # 向量数据库配置
-vector-datasource:
-  host: http://117.72.194.214
-  port: 8000
-  collection-name: test_collection
-  initialize-schema: true
+spring:
+  ai:
+    vectorstore:
+      type: chroma
+      chroma:
+        client:
+          host: http://192.168.1.14
+          port: 8000
+        tenant-name: knowgo
+        database-name: knowgo
+        collection-name: knowgo
+
+
 
 # Ai 配置
 know:
   go:
     ai:
-      api-key: ${KNOW_GO_AI_API_KEY}
+      api-key: sk-f65546009b6e44fda3fa164c659d53d7
