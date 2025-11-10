@@ -39,7 +39,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public Map<String, String> extractMetadata(InputStream inputStream) throws Exception {
+    public Map<String, Object> extractMetadata(InputStream inputStream) throws Exception {
         Metadata metadata = new Metadata();
         ParseContext context = new ParseContext();
         AutoDetectParser parser = new AutoDetectParser();
@@ -47,7 +47,7 @@ public class FileServiceImpl implements FileService {
         try (inputStream){
             // 仅提取元数据（忽略文本内容）
             parser.parse(inputStream, new BodyContentHandler(0), metadata, context);
-            Map<String, String> metadataMap = new HashMap<>();
+            Map<String, Object> metadataMap = new HashMap<>();
             for (String name : metadata.names()) {
                 metadataMap.put(name, metadata.get(name));
             }

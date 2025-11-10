@@ -3,7 +3,11 @@ package com.fw.know.go.ai.configuration;
 import com.alibaba.cloud.ai.dashscope.api.DashScopeApi;
 import com.alibaba.cloud.ai.dashscope.embedding.DashScopeEmbeddingModel;
 import lombok.Data;
+import org.springframework.ai.document.MetadataMode;
 import org.springframework.ai.embedding.EmbeddingModel;
+import org.springframework.ai.openai.OpenAiEmbeddingModel;
+import org.springframework.ai.openai.OpenAiEmbeddingOptions;
+import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -27,12 +31,19 @@ public class AiConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public DashScopeApi dashScopeApi() {
-        return DashScopeApi.builder().apiKey(aiProperties.getApiKey()).build();
+        return DashScopeApi.builder().apiKey(aiProperties.getChatApiKey()).build();
     }
 
     @Bean
-    @ConditionalOnMissingBean
-    public EmbeddingModel embeddingModel(DashScopeApi dashScopeApi){
-        return new DashScopeEmbeddingModel(dashScopeApi);
+    public OpenAiApi openAiApi(){
+        return OpenAiApi.builder().baseUrl(aiProperties.getEmbeddingApiKey())
+                .apiKey(aiProperties.getEmbeddingApiKey()).build();
+    }
+
+
+    @Bean
+    public EmbeddingModel embeddingModel(){
+        return new OpenAiEmbeddingModel(openAiApi(), MetadataMode.EMBED,
+                OpenAiEmbeddingOptions.builder().model(aiProperties.getEmbeddingModel()).build());
     }
 }

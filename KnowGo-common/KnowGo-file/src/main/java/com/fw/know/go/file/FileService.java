@@ -33,5 +33,5 @@ public interface FileService {
       * @return 提取到的元数据键值对
       * @throws Exception 提取元数据过程中可能抛出的异常
       */
-    public Map<String, String> extractMetadata(InputStream inputStream) throws Exception;
+    public Map<String, Object> extractMetadata(InputStream inputStream) throws Exception;
 }

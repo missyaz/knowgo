@@ -17,10 +17,20 @@ public class AiProperties {
     /**
      * 大模型的API密钥
      */
-    private String apiKey;
+    private String chatApiKey;
 
-     /**
-      * 大模型的名称
+    /**
+     * 大模型的名称
+     */
+    private String chatModel;
+
+    /**
+     * 嵌入模型的API密钥
+     */
+    private String embeddingApiKey;
+
+    /**
+      * 嵌入模型的名称
       */
-    private String model;
+    private String embeddingModel;
 }

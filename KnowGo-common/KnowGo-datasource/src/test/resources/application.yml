@@ -6,12 +6,17 @@ spring:
       type: chroma
       chroma:
         client:
-          host: http://192.168.1.14
+          host: http://117.72.194.214
           port: 8000
         tenant-name: knowgo
         database-name: knowgo
         collection-name: knowgo
 
+vector-datasource:
+  baseUrl: http://117.72.194.214:8000
+  tenantName: knowgo
+  databaseName: knowgo
+  collectionName: knowgo
 
 
 # Ai 配置

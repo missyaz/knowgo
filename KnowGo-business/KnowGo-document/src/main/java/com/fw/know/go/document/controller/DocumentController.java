@@ -1,5 +1,6 @@
 package com.fw.know.go.document.controller;
 
+import com.fw.know.go.document.domain.service.DocumentService;
 import com.fw.know.go.file.FileService;
 import com.fw.know.go.web.vo.Result;
 import lombok.RequiredArgsConstructor;
@@ -24,20 +25,14 @@ import static com.fw.know.go.document.infrastructure.exception.DocumentErrorCode
 @RequiredArgsConstructor
 public class DocumentController {
 
-    private final FileService fileService;
+    private final DocumentService documentService;
 
-    @PostMapping("/parse")
-    public Result<Boolean> parseDocument(@RequestParam("file")MultipartFile file) {
+    @PostMapping("/upload")
+    public Result<Boolean> uploadDocument(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()){
             return Result.error(DOCUMENT_EMPTY.getCode(), DOCUMENT_EMPTY.getMessage());
         }
-        try {
-            String text = fileService.extractText(file.getInputStream());
-            // TODO: 将提取到的文本存入向量数据库
-            return Result.success(true);
-        } catch (Exception e) {
-            log.error("parse document error", e);
-            return Result.success(false);
-        }
+        Boolean result = documentService.uploadDocument(file);
+        return Result.success(result);
     }
 }

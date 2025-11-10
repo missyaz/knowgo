@@ -32,8 +32,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(classes = {
         DatasourceConfiguration.class,
         AiConfiguration.class,
-        ChromaVectorStoreAutoConfiguration.class,
-        ObjectMapper.class
+        ChromaVectorStoreAutoConfiguration.class
 })
 @ActiveProfiles("test")
 public class VectorDatasourceTest {

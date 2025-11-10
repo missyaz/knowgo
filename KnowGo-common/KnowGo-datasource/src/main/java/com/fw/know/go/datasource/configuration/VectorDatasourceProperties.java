@@ -16,19 +16,14 @@ public class VectorDatasourceProperties {
     public static final String PREFIX = "vector-datasource";
 
     /**
-     * 向量数据库的名称
+     * 向量数据库的租户名称
      */
-    private String name;
+    private String tenantName;
 
     /**
-     * 向量数据库的主机地址
+     * 向量数据库的URL
      */
-    private String host;
-
-    /**
-     * 向量数据库的端口
-     */
-    private String port;
+    private String baseUrl;
 
     /**
      * 向量数据库的访问令牌
@@ -44,6 +39,11 @@ public class VectorDatasourceProperties {
      * 向量数据库的密码
      */
     private String password;
+
+     /**
+     * 向量数据库的数据库名称
+     */
+    private String databaseName;
 
     /**
      * 向量数据库的集合名称

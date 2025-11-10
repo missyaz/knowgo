@@ -3,6 +3,9 @@ package com.fw.know.go.datasource.configuration;
 import com.fw.know.go.datasource.VectorDatasourceService;
 import com.fw.know.go.datasource.VectorDatasourceServiceImpl;
 import io.micrometer.observation.ObservationRegistry;
+
+import java.util.Objects;
+
 import org.springframework.ai.chroma.vectorstore.ChromaApi;
 import org.springframework.ai.chroma.vectorstore.ChromaVectorStore;
 import org.springframework.ai.embedding.BatchingStrategy;
@@ -30,32 +33,26 @@ public class DatasourceConfiguration {
      */
     private final VectorDatasourceProperties vectorDatasourceProperties;
 
-
     public DatasourceConfiguration(VectorDatasourceProperties vectorDatasourceProperties) {
         this.vectorDatasourceProperties = vectorDatasourceProperties;
     }
 
-//    @Bean
-//    @ConditionalOnMissingBean
-//    public ChromaApi chromaApi() {
-//        return ChromaApi.builder()
-//                .baseUrl(vectorDatasourceProperties.getHost() + ":" + vectorDatasourceProperties.getPort())
-//                .build();
-//    }
+    @Bean
+    @ConditionalOnMissingBean
+    public ChromaApi chromaApi() {
+        return ChromaApi.builder()
+                .baseUrl(Objects.requireNonNull(vectorDatasourceProperties.getBaseUrl()))
+                .build();
+    }
 
     @Bean
     public ChromaVectorStore vectorStore(EmbeddingModel embeddingModel, ChromaApi chromaApi,
-                                         ChromaVectorStoreProperties storeProperties, ObjectProvider<ObservationRegistry> observationRegistry,
-                                         ObjectProvider<VectorStoreObservationConvention> customObservationConvention,
-                                         BatchingStrategy chromaBatchingStrategy) {
-        return ChromaVectorStore.builder(chromaApi, embeddingModel)
-                .tenantName(storeProperties.getTenantName())
-                .databaseName(storeProperties.getDatabaseName())
-                .collectionName(storeProperties.getCollectionName())
-                .initializeSchema(storeProperties.isInitializeSchema())
-                .observationRegistry(observationRegistry.getIfUnique(() -> ObservationRegistry.NOOP))
-                .customObservationConvention(customObservationConvention.getIfAvailable(() -> null))
-                .batchingStrategy(chromaBatchingStrategy)
+                                         VectorDatasourceProperties storeProperties) {
+        return ChromaVectorStore.builder(Objects.requireNonNull(chromaApi), Objects.requireNonNull(embeddingModel))
+                .tenantName(Objects.requireNonNull(storeProperties.getTenantName()))
+                .databaseName(Objects.requireNonNull(storeProperties.getDatabaseName()))
+                .collectionName(Objects.requireNonNull(storeProperties.getCollectionName()))
+                .initializeSchema(storeProperties.getInitializeSchema() != null && storeProperties.getInitializeSchema())
                 .build();
     }
 

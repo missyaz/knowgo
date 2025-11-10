@@ -20,4 +20,19 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-datasource</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-file</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-web</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>
