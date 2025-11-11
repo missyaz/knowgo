@@ -5,11 +5,11 @@ import com.fw.know.go.file.FileService;
 import com.fw.know.go.web.vo.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ai.document.Document;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 import static com.fw.know.go.document.infrastructure.exception.DocumentErrorCode.DOCUMENT_EMPTY;
 
@@ -33,6 +33,12 @@ public class DocumentController {
             return Result.error(DOCUMENT_EMPTY.getCode(), DOCUMENT_EMPTY.getMessage());
         }
         Boolean result = documentService.uploadDocument(file);
+        return Result.success(result);
+    }
+
+    @GetMapping("/query")
+    public Result<List<Document>> queryDocument(@RequestParam("query") String query) {
+        List<Document> result = documentService.queryDocument(query);
         return Result.success(result);
     }
 }

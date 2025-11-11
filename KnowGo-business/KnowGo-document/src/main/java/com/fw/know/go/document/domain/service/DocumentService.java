@@ -1,5 +1,6 @@
 package com.fw.know.go.document.domain.service;
 
+import java.util.List;
 import java.util.Map;
 
 import cn.hutool.core.util.IdUtil;
@@ -49,5 +50,14 @@ public class DocumentService{
             log.error("upload document error", e);
             throw new DocumentException(DocumentErrorCode.PARSE_ERROR);
         }
+    }
+
+     /**
+     * 查询文档
+     * @param query 查询字符串
+     * @return 符合查询条件的文档列表
+     */
+    public List<Document> queryDocument(String query) {
+        return vectorDatasourceService.similaritySearch(query);
     }
 }
