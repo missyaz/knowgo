@@ -13,10 +13,13 @@ import org.springframework.ai.openai.OpenAiEmbeddingModel;
 import org.springframework.ai.openai.OpenAiEmbeddingOptions;
 import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.AutoConfigurationExcludeFilter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.retry.support.RetryTemplate;
 
 /**
@@ -29,16 +32,6 @@ import org.springframework.retry.support.RetryTemplate;
 public class AiConfiguration {
 
     private final AiProperties aiProperties;
-
-    /**
-     * openai默认的嵌入模型名称
-     */
-    public static final String OPEN_AI_EMBEDDING_MODEL = "text-embedding-ada-002";
-
-     /**
-     * openai默认的聊天模型名称
-     */
-    public static final String OPEN_AI_CHAT_MODEL = "gpt-3.5-turbo";
 
     public AiConfiguration(AiProperties aiProperties) {
         this.aiProperties = aiProperties;

@@ -2,22 +2,17 @@ package com.fw.know.go.datasource.configuration;
 
 import com.fw.know.go.datasource.VectorDatasourceService;
 import com.fw.know.go.datasource.VectorDatasourceServiceImpl;
-import io.micrometer.observation.ObservationRegistry;
-
-import java.util.Objects;
-
 import org.springframework.ai.chroma.vectorstore.ChromaApi;
 import org.springframework.ai.chroma.vectorstore.ChromaVectorStore;
-import org.springframework.ai.embedding.BatchingStrategy;
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.ai.vectorstore.VectorStore;
-import org.springframework.ai.vectorstore.chroma.autoconfigure.ChromaVectorStoreProperties;
-import org.springframework.ai.vectorstore.observation.VectorStoreObservationConvention;
-import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Objects;
 
 /**
  * @Description 数据源配置类
@@ -46,6 +41,7 @@ public class DatasourceConfiguration {
     }
 
     @Bean
+    @ConditionalOnMissingBean
     public ChromaVectorStore vectorStore(EmbeddingModel embeddingModel, ChromaApi chromaApi,
                                          VectorDatasourceProperties storeProperties) {
         return ChromaVectorStore.builder(Objects.requireNonNull(chromaApi), Objects.requireNonNull(embeddingModel))

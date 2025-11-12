@@ -46,7 +46,7 @@ public class FileServiceImpl implements FileService {
 
         try (inputStream){
             // 仅提取元数据（忽略文本内容）
-            parser.parse(inputStream, new BodyContentHandler(0), metadata, context);
+            parser.parse(inputStream, new BodyContentHandler(-1), metadata, context);
             Map<String, Object> metadataMap = new HashMap<>();
             for (String name : metadata.names()) {
                 metadataMap.put(name, metadata.get(name));
