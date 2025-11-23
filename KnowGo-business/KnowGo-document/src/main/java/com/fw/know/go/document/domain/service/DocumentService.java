@@ -57,7 +57,7 @@ public class DocumentService{
      * @param query 查询字符串
      * @return 符合查询条件的文档列表
      */
-    public List<Document> queryDocument(String query) {
-        return vectorDatasourceService.similaritySearch(query);
+    public List<Document> queryDocument(String query, int topK) {
+        return vectorDatasourceService.similaritySearch(query, topK);
     }
 }

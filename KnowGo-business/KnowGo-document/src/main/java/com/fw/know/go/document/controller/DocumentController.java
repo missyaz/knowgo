@@ -37,8 +37,9 @@ public class DocumentController {
     }
 
     @GetMapping("/query")
-    public Result<List<Document>> queryDocument(@RequestParam("query") String query) {
-        List<Document> result = documentService.queryDocument(query);
+    public Result<List<Document>> queryDocument(@RequestParam("query") String query,
+                                                @RequestParam(value = "topK", required = false, defaultValue = "5") int topK) {
+        List<Document> result = documentService.queryDocument(query, topK);
         return Result.success(result);
     }
 }
