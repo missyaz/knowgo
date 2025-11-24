@@ -67,7 +67,7 @@ public class VectorDatasourceTest {
     @Test
     public void searchDocument() {
         String query = "Test Document";
-        List<Document> documents = vectorDatasourceService.similaritySearch(query, 5);
+        List<Document> documents = vectorDatasourceService.similaritySearch(query, 5, 0.75);
         Assert.isTrue(documents.size() == 1, "搜索结果应该包含1个文档");
         for (Document document : documents) {
             Assert.isTrue(document.getMetadata().get("title").equals("Test Document"), "文档标题应该是Test Document");

@@ -8,7 +8,7 @@
     </parent>
 
     <modules>
-        <module>KnowGo-document</module>
+        <module>KnowGo-rag</module>
         <module>KnowGo-user</module>
     </modules>
 

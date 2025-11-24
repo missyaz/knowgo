@@ -42,8 +42,8 @@ public class VectorDatasourceServiceImpl implements VectorDatasourceService {
     }
 
     @Override
-    public List<Document> similaritySearch(String query, int topK) {
-        return vectorStore.similaritySearch(SearchRequest.builder().query(query).topK(topK).build());
+    public List<Document> similaritySearch(String query, int topK, double similarityThreshold) {
+        return vectorStore.similaritySearch(SearchRequest.builder().query(query).topK(topK).similarityThreshold(similarityThreshold).build());
     }
 
     @Override
