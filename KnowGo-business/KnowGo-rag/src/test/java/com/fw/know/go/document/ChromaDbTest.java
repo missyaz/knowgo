@@ -116,10 +116,10 @@ public class ChromaDbTest {
         // 1. 先添加测试文档
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("test_service", "true");
-        vectorDatasourceService.addDocument("service-test-doc", "这是通过服务层添加的测试文档，包含重要信息。", metadata);
+        //vectorDatasourceService.addDocument("service-test-doc", "这是通过服务层添加的测试文档，包含重要信息。", metadata);
         
         // 2. 使用服务层的查询方法
-        List<Document> results = documentService.queryDocument("重要信息", 5);
+        List<Document> results = documentService.queryDocument("武汉", 5, 0.5d);
         
         // 3. 验证查询结果
         assertNotNull(results, "服务层查询结果不应为空");

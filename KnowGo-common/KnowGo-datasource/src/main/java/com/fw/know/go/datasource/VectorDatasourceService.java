@@ -46,6 +46,14 @@ public interface VectorDatasourceService {
      * @return 相似文档列表
      */
     List<Document> similaritySearch(String query, int topK, double similarityThreshold);
+
+    /**
+     * 相似性搜索
+     * @param query 查询文本
+     * @param topK 返回的最大结果数
+     * @return 相似文档列表
+     */
+    List<Document> similaritySearch(String query, int topK);
     
     /**
      * 带过滤条件的相似性搜索

@@ -61,4 +61,14 @@ public class DocumentService{
     public List<Document> queryDocument(String query, int topK, double similarityThreshold) {
         return vectorDatasourceService.similaritySearch(query, topK, similarityThreshold);
     }
+
+     /**
+     * 查询文档
+     * @param query 查询字符串
+     * @param topK 返回的最大结果数
+     * @return 符合查询条件的文档列表
+     */
+    public List<Document> queryDocument(String query, int topK) {
+        return vectorDatasourceService.similaritySearch(query, topK);
+    }
 }
