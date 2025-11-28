@@ -18,6 +18,8 @@
         <module>KnowGo-file</module>
         <module>KnowGo-datasource</module>
         <module>KnowGo-ai</module>
+        <module>KnowGo-skywalking</module>
+        <module>KnowGo-cache</module>
     </modules>
 
     <properties>

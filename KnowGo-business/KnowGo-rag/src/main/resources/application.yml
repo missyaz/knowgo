@@ -3,18 +3,10 @@ server:
 
 spring:
   application:
-    name: @application.name@
+    name: KnowGo-rag
   ai:
-#    dashscope:
-#      api-key: ${chatApikey}
-    openai:
-      base-url: https://api.chatanywhere.tech
-      api-key: ${embeddingApikey}
-
-logging:
-  level:
-    root: info
-
+    dashscope:
+      api-key: ${DASHSCOPE_API_KEY}
 # 向量数据库配置
 vector-datasource:
   baseUrl: http://117.72.194.214:8000

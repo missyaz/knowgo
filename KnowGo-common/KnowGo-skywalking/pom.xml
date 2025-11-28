@@ -7,27 +7,27 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>KnowGo-base</artifactId>
-    <description>公共模块里的base模块，包含异常码接口的定义，业务异常的定义，以及微服务之间的通用响应结构体的定义</description>
+    <artifactId>KnowGo-skywalking</artifactId>
+    <packaging>jar</packaging>
+
+    <name>KnowGo-skywalking</name>
+    <url>http://maven.apache.org</url>
 
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
+            <groupId>org.apache.skywalking</groupId>
+            <artifactId>apm-toolkit-logback-1.x</artifactId>
+            <version>9.4.0</version>
         </dependency>
-        <!--    sensitive    -->
+
         <dependency>
-            <groupId>com.github.houbb</groupId>
-            <artifactId>sensitive-logback</artifactId>
-            <version>1.7.0</version>
+            <groupId>org.apache.skywalking</groupId>
+            <artifactId>apm-toolkit-trace</artifactId>
+            <version>9.4.0</version>
         </dependency>
     </dependencies>
-
-
 </project>

@@ -167,6 +167,16 @@
                 <artifactId>KnowGo-ai</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.fw</groupId>
+                <artifactId>KnowGo-skywalking</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fw</groupId>
+                <artifactId>KnowGo-cache</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
