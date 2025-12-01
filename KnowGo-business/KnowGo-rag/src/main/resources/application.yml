@@ -3,10 +3,13 @@ server:
 
 spring:
   application:
-    name: KnowGo-rag
+    name: @application.name@
   ai:
     dashscope:
       api-key: ${DASHSCOPE_API_KEY}
+  config:
+    import:
+      - 'classpath:cache.yml'
 # 向量数据库配置
 vector-datasource:
   baseUrl: http://117.72.194.214:8000

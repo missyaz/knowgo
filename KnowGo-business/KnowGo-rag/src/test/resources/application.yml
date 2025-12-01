@@ -3,21 +3,21 @@ server:
 
 spring:
   application:
-    name: KnowGo-document
+    name: KnowGo-rag
   ai:
-#    dashscope:
-#      api-key: ${chatApikey}
-    openai:
-      base-url: https://api.chatanywhere.tech
-      api-key: ${embeddingApikey}
-
-logging:
-  level:
-    root: info
-
+    dashscope:
+      api-key: ${DASHSCOPE_API_KEY}
+  config:
+    import:
+      - 'classpath:cache.yml'
 # 向量数据库配置
 vector-datasource:
   baseUrl: http://117.72.194.214:8000
   tenantName: knowgo
   databaseName: knowgo
   collectionName: knowgo
+
+# 日志配置（方便观察缓存行为）
+logging:
+  level:
+    com.alicp.jetcache: DEBUG # JetCache日志级别（DEBUG可看到缓存命中/未命中细节）
