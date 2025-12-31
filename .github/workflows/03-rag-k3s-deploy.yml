@@ -1,0 +1,81 @@
+name: RAG-03 Deploy to K3s (RAG Module)
+
+# 触发条件：1. 流水线 2 成功完成  2. 手动触发（可指定环境）
+on:
+  workflow_run:
+    workflows: [ "RAG-02 Image Build & Push to ACR (Reuse JAR)" ]
+    branches: [ main ]
+    types: [ completed ]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - test
+          - prod
+      image_tag:
+        description: 'RAG Image tag'
+        required: false
+        default: ''
+
+jobs:
+  rag-deploy-to-k3s:
+    runs-on: ubuntu-latest
+    if: >
+      (github.event.workflow_run.conclusion == 'success') ||
+      (github.event_name == 'workflow_dispatch')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set Image Tag & Environment
+        id: set_params
+        run: |
+          # 设置镜像标签
+          if [ -n "${{ github.event.inputs.image_tag }}" ]; then
+            echo "IMAGE_TAG=${{ github.event.inputs.image_tag }}" >> $GITHUB_ENV
+          else
+            echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_ENV
+          fi
+          # 设置部署环境
+          echo "ENVIRONMENT=${{ github.event.inputs.environment || 'dev' }}" >> $GITHUB_ENV
+
+      - name: Configure KubeConfig for K3s
+        run: |
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
+          chmod 600 ~/.kube/config
+          # 验证 K3s 连接并创建命名空间（若不存在）
+          kubectl config get-contexts
+          kubectl get namespace application || kubectl create namespace application
+
+      - name: Replace RAG K8s Config Placeholders
+        run: |
+          # 替换 K8s 配置文件中的占位符
+          sed -i "s|__ACR_REGISTRY__|${{ secrets.ACR_REGISTRY }}|g" k8s/rag-deploy.yml
+          sed -i "s|__IMAGE_TAG__|${{ env.IMAGE_TAG }}|g" k8s/rag-deploy.yml
+          sed -i "s|__ENVIRONMENT__|${{ env.ENVIRONMENT }}|g" k8s/rag-deploy.yml
+          sed -i "s|__DASHSCOPE_API_KEY__|${{ secrets.DASHSCOPE_API_KEY }}|g" k8s/rag-deploy.yml
+
+      - name: Deploy RAG to K3s
+        run: |
+          kubectl apply -f k8s/rag-deploy.yml -n application
+          echo "=== RAG Deployment Started ==="
+
+      - name: Verify RAG Deployment Status
+        run: |
+          # 等待部署完成，超时 5 分钟
+          kubectl rollout status deployment/knowgo-rag -n application --timeout=5m
+          
+          # 输出详细状态
+          echo "=== RAG Pod Status ==="
+          kubectl get pods -n application -l app=knowgo-rag
+          echo "=== RAG Service Status ==="
+          kubectl get svc -n application knowgo-rag
+          echo "=== RAG Deployment Events ==="
+          kubectl describe pod -n application -l app=knowgo-rag | grep -A 10 "Events"
+          echo "RAG deployed to K3s successfully!"

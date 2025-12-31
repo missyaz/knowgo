@@ -1,0 +1,75 @@
+name: RAG-02 Image Build & Push to ACR (Reuse JAR)
+
+# 触发条件：1. 流水线1成功完成  2. 手动触发
+on:
+  workflow_run:
+    workflows: [ "RAG-01 Full Project Build (Generate RAG JAR)" ]
+    branches: [ main ]
+    types: [ completed ]
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: 'Image tag (default: latest commit SHA)'
+        required: false
+        default: ''
+
+jobs:
+  rag-image-build-push:
+    runs-on: ubuntu-latest
+    if: >
+      (github.event.workflow_run.conclusion == 'success') ||
+      (github.event_name == 'workflow_dispatch')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set Image Tag
+        id: set_tag
+        run: |
+          if [ -n "${{ github.event.inputs.image_tag }}" ]; then
+            echo "IMAGE_TAG=${{ github.event.inputs.image_tag }}" >> $GITHUB_ENV
+          else
+            echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_ENV
+          fi
+
+      - name: Restore RAG JAR Artifact (从流水线1缓存中恢复JAR包)
+        uses: actions/cache@v3
+        with:
+          path: |
+            KnowGo-business/KnowGo-rag/target/
+          key: ${{ runner.os }}-rag-jar-${{ env.IMAGE_TAG }}
+
+      - name: Configure ACR Authentication (阿里云ACR登录)
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.ACR_REGISTRY }}
+          username: ${{ secrets.ACR_USER }}
+          password: ${{ secrets.ACR_PASSWORD }}
+
+      - name: Set up Docker Buildx (提升Docker构建效率)
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build & Push RAG Docker Image (Build in Container)
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: KnowGo-business/KnowGo-rag/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.ACR_REGISTRY }}/knowgo/knowgo-rag:${{ env.IMAGE_TAG }}
+            ${{ secrets.ACR_REGISTRY }}/knowgo/knowgo-rag:dev
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+        env:
+          DOCKER_BUILDKIT: 1
+
+      - name: Verify RAG Image Push (验证镜像是否推送成功)
+        run: |
+          echo "=== Verifying RAG Image ==="
+          docker pull ${{ secrets.ACR_REGISTRY }}/knowgo/knowgo-rag:${{ env.IMAGE_TAG }}
+          echo "RAG Image pushed to ACR successfully! (Reused JAR from Pipeline 1)"
+
+      - name: Clean Up Docker Cache (清理缓存，避免占用空间)
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache

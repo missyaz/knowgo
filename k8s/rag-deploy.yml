@@ -1,0 +1,63 @@
+# 修正后的 k8s/rag-deploy.yml（无语法错误，可直接解析）
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: knowgo-rag
+  namespace: application
+  labels:
+    app: knowgo-rag
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: knowgo-rag
+  template:
+    metadata:
+      labels:
+        app: knowgo-rag
+    spec:
+      # 新增：引用 ACR 拉取凭证 Secret
+      imagePullSecrets:
+        - name: aliyun-acr-secret
+      containers:
+        - name: knowgo-rag  # 一级容器配置，缩进 6 个空格
+          image: __ACR_REGISTRY__/knowgo/knowgo-rag:__IMAGE_TAG__  # 同层级，缩进 8 个空格
+          ports:  # 同层级，缩进 8 个空格
+            - containerPort: 8003  # 二级配置，缩进 10 个空格
+          env:  # 同层级，缩进 8 个空格（对应前面的 containers 内层级）
+            - name: SPRING_PROFILES_ACTIVE  # 第 19 行（修正后），缩进 10 个空格，冒号后加空格
+              value: __ENVIRONMENT__  # 同层级，缩进 12 个空格，冒号后加空格
+            - name: DASHSCOPE_API_KEY  # 同层级，缩进 10 个空格
+              value: __DASHSCOPE_API_KEY__  # 同层级，缩进 12 个空格
+          livenessProbe:  # 同层级，缩进 8 个空格
+            httpGet:  # 二级配置，缩进 10 个空格
+              path: /actuator/health/liveness  # 三级配置，缩进 12 个空格
+              port: 8003  # 三级配置，缩进 12 个空格
+            initialDelaySeconds: 60  # 二级配置，缩进 10 个空格
+            periodSeconds: 30  # 二级配置，缩进 10 个空格
+          readinessProbe:  # 同层级，缩进 8 个空格
+            httpGet:  # 二级配置，缩进 10 个空格
+              path: /actuator/health/readiness  # 三级配置，缩进 12 个空格
+              port: 8003  # 三级配置，缩进 12 个空格
+            initialDelaySeconds: 30  # 二级配置，缩进 10 个空格
+            periodSeconds: 10  # 二级配置，缩进 10 个空格
+          resources:  # 同层级，缩进 8 个空格
+            limits:  # 二级配置，缩进 10 个空格
+              cpu: "1"  # 三级配置，缩进 12 个空格
+              memory: "1Gi"  # 三级配置，缩进 12 个空格
+            requests:  # 二级配置，缩进 10 个空格
+              cpu: "500m"  # 三级配置，缩进 12 个空格
+              memory: "512Mi"  # 三级配置，缩进 12 个空格
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: knowgo-rag
+  namespace: application
+spec:
+  selector:
+    app: knowgo-rag
+  ports:
+    - port: 80
+      targetPort: 8003
+  type: ClusterIP

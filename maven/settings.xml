@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <mirrors>
+        <!-- 1. 阿里云镜像（优先使用，恢复正常后自动生效） -->
+        <mirror>
+            <id>aliyunmaven</id>
+            <name>阿里云公共仓库</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+
+        <!-- 2. 华为云镜像（国内备用，同步速度快） -->
+        <mirror>
+            <id>huaweicloud</id>
+            <name>华为云公共仓库</name>
+            <url>https://mirrors.huaweicloud.com/repository/maven/</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+
+        <!-- 3. 清华大学镜像（国内备用，同步及时） -->
+        <mirror>
+            <id>tsinghua</id>
+            <name>清华大学公共仓库</name>
+            <url>https://mirrors.tuna.tsinghua.edu.cn/maven2/</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+
+        <!-- 4. Maven 官方中央仓库（最终兜底） -->
+        <mirror>
+            <id>central</id>
+            <name>Maven Central Repository</name>
+            <url>https://repo1.maven.org/maven2/</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+    </mirrors>
+</settings>

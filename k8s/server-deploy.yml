@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: knowgo-{{ module }}
+  namespace: application
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: knowgo-{{ module }}
+  template:
+    metadata:
+      labels:
+        app: knowgo-{{ module }}
+    spec:
+      containers:
+      - name: knowgo-{{ module }}
+        image: {{ acr_registry }}/knowgo/knowgo-{{ module }}:{{ image_tag }}
+        ports:
+        - containerPort: {{ port }}
+        resources:
+          limits:
+            cpu: "1"
+            memory: "1Gi"
+          requests:
+            cpu: "500m"
+            memory: "512Mi"
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: {{ environment }}
+        - name: DASHSCOPE_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: dashscope-secret
+              key: api-key
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: {{ port }}
+          initialDelaySeconds: 60
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: {{ port }}
+          initialDelaySeconds: 30
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: knowgo-{{ module }}
+  namespace: application
+spec:
+  selector:
+    app: knowgo-{{ module }}
+  ports:
+  - port: 80
+    targetPort: {{ port }}
+  type: ClusterIP

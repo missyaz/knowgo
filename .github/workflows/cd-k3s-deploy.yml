@@ -1,0 +1,104 @@
+name: CD - K3s Multi-Module Deploy (RAG Priority)
+
+# 触发条件：1. CI 流水线成功完成  2. 手动触发（便于单独部署）
+on:
+  # 监听 CI 流水线成功事件，自动触发部署
+  workflow_run:
+    workflows: [ "CI - Multi-Module Build & Push ACR" ]
+    branches: [ main ]
+    types: [ completed ]
+  # 手动触发部署（可指定环境）
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - test
+          - prod
+      image_tag:
+        description: 'Image tag (default: latest commit SHA)'
+        required: false
+        default: ''
+
+jobs:
+  deploy-to-k3s:
+    runs-on: ubuntu-latest
+    # 仅当 CI 流水线成功完成，或手动触发时执行
+    if: >
+      (github.event.workflow_run.conclusion == 'success') ||
+      (github.event_name == 'workflow_dispatch')
+    strategy:
+      matrix:
+        # 优先部署 RAG 模块，再部署其他模块
+        module: [rag, server, business]
+        include:
+          - module: rag
+            port: 8081
+            deployment_name: knowgo-rag
+          - module: server
+            port: 8080
+            deployment_name: knowgo-server
+          - module: business
+            port: 8082
+            deployment_name: knowgo-business
+      fail-fast: true  # RAG 模块部署失败则终止整个部署流程
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set image tag (fallback to SHA if not provided)
+        id: set_tag
+        run: |
+          if [ -n "${{ github.event.inputs.image_tag }}" ]; then
+            echo "IMAGE_TAG=${{ github.event.inputs.image_tag }}" >> $GITHUB_ENV
+          else
+            echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_ENV
+          fi
+
+      - name: Configure KubeConfig for K3s
+        run: |
+          # 从 GitHub Secrets 读取 K3s 配置
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
+          chmod 600 ~/.kube/config
+          # 验证 K3s 连接
+          kubectl config get-contexts
+          kubectl get namespace application || kubectl create namespace application
+
+      - name: Deploy ${{ matrix.module }} to K3s (application namespace)
+        run: |
+          # 定义部署变量
+          MODULE=${{ matrix.module }}
+          IMAGE_TAG=${{ env.IMAGE_TAG }}
+          ENVIRONMENT=${{ github.event.inputs.environment || 'dev' }}
+          ACR_REGISTRY=${{ secrets.ACR_REGISTRY }}
+          DASHSCOPE_API_KEY=${{ secrets.DASHSCOPE_API_KEY }}
+
+          # 替换外部 YAML 文件中的占位符
+          sed -i "s|__ACR_REGISTRY__|${ACR_REGISTRY}|g" k8s/${MODULE}-deploy.yml
+          sed -i "s|__IMAGE_TAG__|${IMAGE_TAG}|g" k8s/${MODULE}-deploy.yml
+          sed -i "s|__ENVIRONMENT__|${ENVIRONMENT}|g" k8s/${MODULE}-deploy.yml
+          sed -i "s|__DASHSCOPE_API_KEY__|${DASHSCOPE_API_KEY}|g" k8s/${MODULE}-deploy.yml
+
+          # 应用 K8s 配置文件
+          kubectl apply -f k8s/${MODULE}-deploy.yml -n application
+
+      - name: Verify ${{ matrix.module }} deployment
+        run: |
+          # 等待部署完成，超时 5 分钟
+          kubectl rollout status deployment/${{ matrix.deployment_name }} -n application --timeout=5m
+          
+          # 重点输出 RAG 模块部署状态
+          if [ "${{ matrix.module }}" = "rag" ]; then
+            echo "=== RAG Module Deployment Status ==="
+            kubectl get pods -n application -l app=knowgo-rag
+            kubectl describe pod -n application -l app=knowgo-rag | grep -A 10 "Events"
+            echo "=== RAG Module Service Status ==="
+            kubectl get svc -n application knowgo-rag
+            echo "RAG Module deployed to K3s successfully!"
+          fi
