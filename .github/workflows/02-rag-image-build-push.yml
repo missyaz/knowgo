@@ -1,4 +1,4 @@
-name: [RAG-02] Image Build & Push to ACR
+name: Image Build & Push to ACR
 
 # 触发条件：1. 流水线 1 成功完成  2. 手动触发
 on:

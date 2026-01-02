@@ -1,4 +1,4 @@
-name: [RAG-03] Deploy to K3s
+name: Deploy to K3s
 
 # 触发条件：1. 流水线 2 成功完成  2. 手动触发（可指定环境）
 on:

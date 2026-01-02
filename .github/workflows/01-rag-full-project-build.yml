@@ -1,4 +1,4 @@
-name: [RAG-01] Full Project Build (Dependency Resolve)
+name: Full Project Build (Dependency Resolve)
 
 on:
   push:
