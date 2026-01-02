@@ -64,7 +64,7 @@ jobs:
         run: |
           # 从 GitHub Secrets 读取 K3s 配置
           mkdir -p ~/.kube
-          echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
+          echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
           chmod 600 ~/.kube/config
           # 验证 K3s 连接
           kubectl config get-contexts
