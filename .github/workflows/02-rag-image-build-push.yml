@@ -65,7 +65,7 @@ jobs:
       - name: Build & Push RAG Docker Image (直接复制JAR包)
         uses: docker/build-push-action@v5
         with:
-          context: KnowGo-business/KnowGo-rag/  # 构建上下文：项目根目录（确保能找到JAR包路径）
+          context: .  # 构建上下文：项目根目录（确保能找到JAR包路径）
           file: KnowGo-business/KnowGo-rag/Dockerfile  # 简化后的Dockerfile路径
           push: true
           tags: |
