@@ -53,8 +53,8 @@ jobs:
       - name: Build & Push RAG Docker Image
         uses: docker/build-push-action@v5
         with:
-          context: .  # 根目录作为构建上下文（确保能复制到父 POM）
-          file: KnowGo-business/KnowGo-rag/Dockerfile  # RAG 模块 Dockerfile 路径
+          context: KnowGo-business/KnowGo-rag/  # 构建上下文：RAG模块目录（直接包含settings.xml）
+          file: KnowGo-business/KnowGo-rag/Dockerfile  # 或简写为：Dockerfile（因为context已指向该目录）
           push: true
           tags: |
             ${{ secrets.ACR_REGISTRY }}/knowgo/knowgo-rag:${{ env.IMAGE_TAG }}
