@@ -22,15 +22,15 @@ jobs:
       matrix:
         module: [server, rag, business]
         include:
-          - module: server
-            port: 8080
-            context: KnowGo-server
+#          - module: server
+#            port: 8080
+#            context: KnowGo-server
           - module: rag
             port: 8081
             context: KnowGo-business/KnowGo-rag
-          - module: business
-            port: 8082
-            context: KnowGo-business/KnowGo-business
+#          - module: business
+#            port: 8082
+#            context: KnowGo-business/KnowGo-business
 
     steps:
       - name: Checkout code
