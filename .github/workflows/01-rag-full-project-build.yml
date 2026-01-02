@@ -45,6 +45,24 @@ jobs:
         env:
           MAVEN_OPTS: '-Xms512m -Xmx1024m'
 
+      # 流水线1 验证步骤（确保target目录和JAR包存在）
+      - name: Verify RAG target & JAR Exists
+        run: |
+          RAG_TARGET_PATH="KnowGo-business/KnowGo-rag/target"
+          # 先验证target目录
+          if [ ! -d "$RAG_TARGET_PATH" ]; then
+            echo "Error: $RAG_TARGET_PATH directory not generated (Maven build failed)!"
+            ls -la KnowGo-business/KnowGo-rag/
+            exit 1
+          fi
+          # 再验证有效JAR包
+          JAR_FILE=$(find "$RAG_TARGET_PATH" -name "*.jar" ! -name "*-sources.jar" ! -name "*-tests.jar" | head -n 1)
+          if [ -z "$JAR_FILE" ]; then
+            echo "Error: No valid JAR file in $RAG_TARGET_PATH!"
+            exit 1
+          fi
+          echo "Maven build success, JAR file: $JAR_FILE"
+
       - name: Cache RAG Build Artifacts
         uses: actions/cache@v3
         with:
