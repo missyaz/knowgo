@@ -50,8 +50,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-            ~/.m2/repository/com/fw/
+            ~/.m2/repository/  # 缓存整个 Maven 本地仓库，而非仅项目相关依赖
             KnowGo-business/KnowGo-rag/target/
-          key: ${{ runner.os }}-rag-maven-${{ github.sha }}
+          key: ${{ runner.os }}-maven-full-${{ github.sha }}
           restore-keys: |
+            ${{ runner.os }}-maven-full-
             ${{ runner.os }}-rag-maven-
