@@ -74,22 +74,19 @@ jobs:
         run: |
           # 定义部署变量
           MODULE=${{ matrix.module }}
-          PORT=${{ matrix.port }}
-          DEPLOYMENT_NAME=${{ matrix.deployment_name }}
-          IMAGE=${{ secrets.ACR_REGISTRY }}/knowgo/knowgo-${MODULE}:${{ env.IMAGE_TAG }}
+          IMAGE_TAG=${{ env.IMAGE_TAG }}
           ENVIRONMENT=${{ github.event.inputs.environment || 'dev' }}
+          ACR_REGISTRY=${{ secrets.ACR_REGISTRY }}
           DASHSCOPE_API_KEY=${{ secrets.DASHSCOPE_API_KEY }}
 
-          # 应用 K3s 部署配置（内联 YAML，也可抽为单独的 k8s/${MODULE}-deploy.yml 文件）
-          kubectl apply -f - <<EOF
-          # 替换原 kubectl apply -f - <<EOF 部分
-            sed -i "s|{{ACR_REGISTRY}}|${{ secrets.ACR_REGISTRY }}|g" k8s/${{ matrix.module }}-deploy.yml
-            sed -i "s|{{IMAGE_TAG}}|${{ env.IMAGE_TAG }}|g" k8s/${{ matrix.module }}-deploy.yml
-            sed -i "s|{{ENVIRONMENT}}|${ENVIRONMENT}|g" k8s/${{ matrix.module }}-deploy.yml
-            sed -i "s|{{DASHSCOPE_API_KEY}}|${DASHSCOPE_API_KEY}|g" k8s/${{ matrix.module }}-deploy.yml
-            
-            kubectl apply -f k8s/${{ matrix.module }}-deploy.yml -n application
-            EOF
+          # 替换外部 YAML 文件中的占位符
+          sed -i "s|__ACR_REGISTRY__|${ACR_REGISTRY}|g" k8s/${MODULE}-deploy.yml
+          sed -i "s|__IMAGE_TAG__|${IMAGE_TAG}|g" k8s/${MODULE}-deploy.yml
+          sed -i "s|__ENVIRONMENT__|${ENVIRONMENT}|g" k8s/${MODULE}-deploy.yml
+          sed -i "s|__DASHSCOPE_API_KEY__|${DASHSCOPE_API_KEY}|g" k8s/${MODULE}-deploy.yml
+
+          # 应用 K8s 配置文件
+          kubectl apply -f k8s/${MODULE}-deploy.yml -n application
 
       - name: Verify ${{ matrix.module }} deployment
         run: |
