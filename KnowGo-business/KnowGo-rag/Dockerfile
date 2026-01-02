@@ -1,11 +1,25 @@
-# 直接使用 JDK 运行镜像，无需构建阶段
-FROM docker.1ms.run/eclipse-temurin:21-jdk
+FROM maven:3.9.12-eclipse-temurin-21 AS builder
 WORKDIR /app
 
-# 复制流水线 1 打包生成的 RAG 模块 JAR 包
-COPY KnowGo-business/KnowGo-rag/target/*.jar app.jar
+# 1. 复制Maven配置
+COPY KnowGo-business/KnowGo-rag/settings.xml /root/.m2/settings.xml
 
-# 配置运行环境
+# 2. 复制所有POM文件（先复制POM，利用Maven缓存）
+COPY pom.xml ./pom.xml
+COPY KnowGo-business/pom.xml ./KnowGo-business/pom.xml
+COPY KnowGo-business/KnowGo-rag/pom.xml ./KnowGo-business/KnowGo-rag/pom.xml
+
+# 3. 复制整个项目源代码
+COPY . ./
+
+# 4. 执行Maven打包，生成target目录
+ENV MAVEN_OPTS="-Xms512m -Xmx1024m"
+RUN mvn clean package -DskipTests -pl KnowGo-business/KnowGo-rag -am
+
+# 运行阶段
+FROM docker.1ms.run/eclipse-temurin:21-jdk
+WORKDIR /app
+COPY --from=builder /app/KnowGo-business/KnowGo-rag/target/*.jar app.jar
 ENV LANG=C.UTF-8 \
     JAVA_OPTS="-Xms256m -Xmx512m"
 EXPOSE 8081

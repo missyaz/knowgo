@@ -39,19 +39,6 @@ jobs:
             KnowGo-business/KnowGo-rag/target/
           key: ${{ runner.os }}-rag-jar-${{ env.IMAGE_TAG }}
 
-      - name: Verify JAR & Dockerfile Exists
-        run: |
-          # 验证JAR包和Dockerfile是否存在（避免构建失败）
-          echo "=== Verify RAG JAR ==="
-          ls -la KnowGo-business/KnowGo-rag/target/
-          echo "=== Verify Dockerfile ==="
-          ls -la KnowGo-business/KnowGo-rag/Dockerfile
-          
-          if [ ! -d "KnowGo-business/KnowGo-rag/target/" ] || [ ! -f "KnowGo-business/KnowGo-rag/Dockerfile" ]; then
-            echo "Error: Missing RAG JAR or Dockerfile!"
-            exit 1
-          fi
-
       - name: Configure ACR Authentication (阿里云ACR登录)
         uses: aliyun/acr-login@v1
         with:
@@ -62,11 +49,11 @@ jobs:
       - name: Set up Docker Buildx (提升Docker构建效率)
         uses: docker/setup-buildx-action@v3
 
-      - name: Build & Push RAG Docker Image (直接复制JAR包)
+      - name: Build & Push RAG Docker Image (Build in Container)
         uses: docker/build-push-action@v5
         with:
-          context: .  # 构建上下文：项目根目录（确保能找到JAR包路径）
-          file: KnowGo-business/KnowGo-rag/Dockerfile  # 简化后的Dockerfile路径
+          context: .
+          file: KnowGo-business/KnowGo-rag/Dockerfile
           push: true
           tags: |
             ${{ secrets.ACR_REGISTRY }}/knowgo/knowgo-rag:${{ env.IMAGE_TAG }}
