@@ -1,0 +1,57 @@
+name: [RAG-01] Full Project Build (Dependency Resolve)
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'pom.xml'
+      - 'KnowGo-common/**'
+      - 'KnowGo-business/**'
+      - 'KnowGo-business/KnowGo-rag/**'
+      - 'maven/settings.xml'  # 新增：settings.xml 变更也触发流水线
+  workflow_dispatch:
+
+jobs:
+  rag-full-project-build:
+    runs-on: ubuntu-latest
+    outputs:
+      image_tag: ${{ github.sha }}
+    steps:
+      - name: Checkout full code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      # 关键修改：删除内联 EOF，改为复制独立 settings.xml
+      - name: Configure Maven Aliyun Mirror (Copy Independent File)
+        run: |
+          # 1. 创建 .m2 目录（若不存在）
+          mkdir -p ~/.m2
+          # 2. 复制仓库中的 maven/settings.xml 到 ~/.m2/ 目录
+          cp ./maven/settings.xml ~/.m2/settings.xml
+          # 3. 验证文件是否复制成功（可选，便于排查）
+          echo "=== Verify Maven settings.xml ==="
+          cat ~/.m2/settings.xml
+
+      - name: Full Project Maven Install (Resolve RAG Dependencies)
+        run: |
+          mvn clean install -DskipTests -pl KnowGo-business/KnowGo-rag -am
+        env:
+          MAVEN_OPTS: '-Xms512m -Xmx1024m'
+
+      - name: Cache RAG Build Artifacts
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.m2/repository/com/fw/
+            KnowGo-business/KnowGo-rag/target/
+          key: ${{ runner.os }}-rag-maven-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-rag-maven-
