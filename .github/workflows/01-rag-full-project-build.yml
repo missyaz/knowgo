@@ -1,5 +1,4 @@
-name: Full Project Build (Dependency Resolve)
-
+name: RAG-01 Full Project Build (Generate RAG JAR)
 on:
   push:
     branches: [ main ]

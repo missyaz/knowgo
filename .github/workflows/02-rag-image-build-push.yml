@@ -1,9 +1,9 @@
-name: Image Build & Push to ACR (Reuse JAR)
+name: RAG-02 Image Build & Push to ACR (Reuse JAR)
 
 # 触发条件：1. 流水线1成功完成  2. 手动触发
 on:
   workflow_run:
-    workflows: [ "Full Project Build (Generate RAG JAR)" ]
+    workflows: [ "RAG-01 Full Project Build (Generate RAG JAR)" ]
     branches: [ main ]
     types: [ completed ]
   workflow_dispatch:

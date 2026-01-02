@@ -1,9 +1,9 @@
-name: Deploy to K3s
+name: RAG-03 Deploy to K3s (RAG Module)
 
 # 触发条件：1. 流水线 2 成功完成  2. 手动触发（可指定环境）
 on:
   workflow_run:
-    workflows: [ "[RAG-02] Image Build & Push to ACR" ]
+    workflows: [ "RAG-02 Image Build & Push to ACR (Reuse JAR)" ]
     branches: [ main ]
     types: [ completed ]
   workflow_dispatch:
