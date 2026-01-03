@@ -47,7 +47,7 @@ jobs:
       - name: Configure KubeConfig for K3s
         run: |
           mkdir -p ~/.kube
-          echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
+          echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
           chmod 600 ~/.kube/config
           # 验证 K3s 连接并创建命名空间（若不存在）
           kubectl config get-contexts
