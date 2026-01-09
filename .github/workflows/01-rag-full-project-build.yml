@@ -41,7 +41,7 @@ jobs:
 
       - name: Full Project Maven Install (Resolve RAG Dependencies)
         run: |
-          mvn clean install -DskipTests -pl KnowGo-business/KnowGo-rag -am
+          mvn clean install -Dmaven.test.skip=true -pl KnowGo-business/KnowGo-rag -am
         env:
           MAVEN_OPTS: '-Xms512m -Xmx1024m'
 

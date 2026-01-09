@@ -1,4 +1,4 @@
-FROM maven:3.9.12-eclipse-temurin-21 AS builder
+FROM docker.1ms.run/maven:3.9.12-eclipse-temurin-21 AS builder
 WORKDIR /app
 
 # 1. 复制Maven配置
@@ -14,7 +14,7 @@ COPY . ./
 
 # 4. 执行Maven打包，生成target目录
 ENV MAVEN_OPTS="-Xms512m -Xmx1024m"
-RUN mvn clean package -DskipTests -pl KnowGo-business/KnowGo-rag -am
+RUN mvn clean package -Dmaven.test.skip=true -pl KnowGo-business/KnowGo-rag -am
 
 # 运行阶段
 FROM docker.1ms.run/eclipse-temurin:21-jdk
