@@ -1,0 +1,7 @@
+com:
+  fw:
+    know:
+      go:
+        nacos:
+          server:
+            url: 117.72.194.214:31909
