@@ -20,9 +20,16 @@
         <module>KnowGo-ai</module>
         <module>KnowGo-skywalking</module>
         <module>KnowGo-cache</module>
+        <module>KnowGo-config</module>
+        <module>KnowGo-sa-token</module>
+        <module>KnowGo-rpc</module>
+        <module>KnowGo-api</module>
+        <module>KnowGo-sms</module>
     </modules>
 
     <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -47,6 +54,11 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.9.25.1</version>
         </dependency>
     </dependencies>
 

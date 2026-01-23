@@ -1,6 +1,10 @@
 server:
-  port: 8004
+  port: 8083
 
 spring:
   application:
-    name: KnowGo-user
+    name: @application.name@
+  config:
+    import:
+      - classpath:base.ym
+      - classpath:datasource.yml

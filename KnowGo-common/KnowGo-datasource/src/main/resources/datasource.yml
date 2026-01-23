@@ -2,10 +2,10 @@ spring:
   autoconfigure:
     exclude: org.apache.shardingsphere.spring.boot.ShardingSphereAutoConfiguration
   datasource:
-    url: ${datasource.url}
-    username: ${datasource.username}
-    password: ${datasource.password}
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${com.fw.know.go.postgre.url}
+    username: ${com.fw.know.go.postgre.username}
+    password: ${com.fw.know.go.postgre.password}
+    driver-class-name: org.postgresql.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     # Druid连接池配置
     #    datasource.druid:

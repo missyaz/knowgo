@@ -4,4 +4,12 @@ com:
       go:
         nacos:
           server:
-            url: 117.72.194.214:31909
+            url: 117.72.194.214:8848
+        postgre:
+          url: jdbc:postgresql://117.72.194.214:31909/knowgo?characterEncoding=utf8&useSSL=false&allowMultiQueries=true&serverTimezone=GMT%2b8
+          username: postgres
+          password: mypgpassword
+        dubbo:
+          nacos:
+            namespace: 942d8abe-8cbd-4f85-9cef-89d496e73264
+            group: dubbo
