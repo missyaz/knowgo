@@ -18,12 +18,6 @@
     </properties>
 
     <dependencies>
-        <!-- 引入Chroma向量数据库的依赖 -->
-        <dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-starter-vector-store-chroma</artifactId>
-        </dependency>
-
         <!--    Mybatis    -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>

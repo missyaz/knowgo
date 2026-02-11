@@ -1,4 +1,4 @@
-package com.fw.know.go.datasource.configuration;
+package com.fw.know.go.vector.configuration;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

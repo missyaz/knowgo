@@ -1,6 +1,5 @@
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.IdUtil;
-import com.fw.know.go.datasource.VectorDatasourceService;
 import com.fw.know.go.datasource.configuration.DatasourceConfiguration;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

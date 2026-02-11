@@ -1,15 +1,16 @@
+# 这是所有项目的基础配置，将所有的配置项都定义在这里，其他项目可以直接引用
 com:
   fw:
     know:
       go:
         nacos:
           server:
-            url: 117.72.194.214:8848
+            url: 117.72.194.214:38848
         postgre:
-          url: jdbc:postgresql://117.72.194.214:31909/knowgo?characterEncoding=utf8&useSSL=false&allowMultiQueries=true&serverTimezone=GMT%2b8
+          url: jdbc:postgresql://117.72.194.214:30432/knowgo?characterEncoding=utf8&useSSL=false&allowMultiQueries=true&serverTimezone=GMT%2b8
           username: postgres
           password: mypgpassword
         dubbo:
           nacos:
             namespace: 942d8abe-8cbd-4f85-9cef-89d496e73264
-            group: dubbo
+            group: dubbo2

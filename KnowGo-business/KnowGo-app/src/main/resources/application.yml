@@ -8,6 +8,7 @@ spring:
       - classpath:base.yml
       - classpath:rpc.yml
       - classpath:cache.yml
+      - classpath:datasource.yml
 
 server:
   port: 8085

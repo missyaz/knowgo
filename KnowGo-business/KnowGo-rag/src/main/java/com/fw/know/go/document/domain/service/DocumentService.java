@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import cn.hutool.core.util.IdUtil;
-import com.fw.know.go.datasource.VectorDatasourceService;
 import com.fw.know.go.document.infrastructure.exception.RagErrorCode;
 import com.fw.know.go.document.infrastructure.exception.RagException;
 import com.fw.know.go.file.FileService;

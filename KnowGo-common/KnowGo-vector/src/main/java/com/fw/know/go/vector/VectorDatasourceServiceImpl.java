@@ -1,4 +1,4 @@
-package com.fw.know.go.datasource;
+package com.fw.know.go.vector;
 
 import org.springframework.ai.document.Document;
 import org.springframework.ai.vectorstore.SearchRequest;

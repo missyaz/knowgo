@@ -5,6 +5,7 @@ spring:
     import:
       - classpath:base.yml
       - classpath:cache.yml
+      - classpath:rpc.yml
 
 sa-token:
   # token 名称（同时也是 cookie 名称）

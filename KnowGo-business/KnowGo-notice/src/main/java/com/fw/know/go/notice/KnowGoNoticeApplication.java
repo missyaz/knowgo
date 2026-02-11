@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Date 2025/11/3 20:44
  * @Description
  */
-@SpringBootApplication(scanBasePackages = {"com.fw.know.go.user"})
+@SpringBootApplication(scanBasePackages = {"com.fw.know.go.notice"})
 public class KnowGoNoticeApplication {
 
     public static void main(String[] args) {

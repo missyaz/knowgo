@@ -8,3 +8,5 @@ spring:
     import:
       - classpath:base.yml
       - classpath:datasource.yml
+      - classpath:rpc.yml
+      - classpath:cache.yml

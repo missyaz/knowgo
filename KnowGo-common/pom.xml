@@ -25,6 +25,7 @@
         <module>KnowGo-rpc</module>
         <module>KnowGo-api</module>
         <module>KnowGo-sms</module>
+        <module>KnowGo-vector</module>
     </modules>
 
     <properties>

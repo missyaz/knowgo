@@ -37,6 +37,10 @@
         </dependency>
         <dependency>
             <groupId>com.fw</groupId>
+            <artifactId>KnowGo-vector</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fw</groupId>
             <artifactId>KnowGo-skywalking</artifactId>
         </dependency>
         <dependency>

@@ -4,7 +4,6 @@ import com.alicp.jetcache.Cache;
 import com.alicp.jetcache.CacheManager;
 import com.alicp.jetcache.anno.CacheType;
 import com.alicp.jetcache.template.QuickConfig;
-import com.fw.know.go.datasource.VectorDatasourceService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

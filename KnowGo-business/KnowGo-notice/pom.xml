@@ -55,6 +55,16 @@
             <groupId>com.fw</groupId>
             <artifactId>KnowGo-base</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-skywalking</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-config</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

@@ -1,10 +1,10 @@
 spring:
   data:
     redis:
-      host: r-bp1zmkaf1sfx9qnwg5pd.redis.rds.aliyuncs.com
-      port: 6379
-      password: (SOrjF$s%3$&EdQYNn^
-      username: leo
+      host: 117.72.194.214
+      port: 30379
+      password: LeoLee520./
+      username: default
       ssl:
         enabled: true
   redis:
@@ -16,11 +16,11 @@ spring:
           timeout: 3000
           retryAttempts: 3
           retryInterval: 1500
-          username: leo
-          password: (SOrjF$s%3$&EdQYNn^
+          username: default
+          password: LeoLee520./
           subscriptionsPerConnection: 5
           clientName: null
-          address: "redis://r-bp1zmkaf1sfx9qnwg5pd.redis.rds.aliyuncs.com:6379"
+          address: "redis://117.72.194.214:30379"
           subscriptionConnectionMinimumIdleSize: 1
           subscriptionConnectionPoolSize: 50
           connectionMinimumIdleSize: 24
