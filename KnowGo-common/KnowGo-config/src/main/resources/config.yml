@@ -3,11 +3,9 @@ spring:
     nacos:
       discovery:
         server-addr: ${com.fw.know.go.nacos.server.url}
-        namespace: ${com.fw.know.go.dubbo.nacos.namespace}
-        group: ${com.fw.know.go.dubbo.nacos.group}
+        # 禁用SpringCloud服务注册发现
+        enabled: false
       config:
         server-addr: ${com.fw.know.go.nacos.server.url}
-        namespace: ${com.fw.know.go.dubbo.nacos.namespace}
-        group: ${com.fw.know.go.dubbo.nacos.group}
         file-extension: properties
         name: ${spring.application.name}
