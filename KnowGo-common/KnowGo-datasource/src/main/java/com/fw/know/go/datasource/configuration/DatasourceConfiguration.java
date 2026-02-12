@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
  * @Author  Leo
  */
 @Configuration
-@MapperScan(basePackages = "cn.hollis.nft.turbo.*.infrastructure.mapper")
+@MapperScan(basePackages = "com.fw.know.go.*.infrastructure.mapper")
 public class DatasourceConfiguration {
 
     @Bean

@@ -3,6 +3,7 @@ package com.fw.know.go.notice.domain.entity;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.TypeReference;
 import com.alibaba.nacos.shaded.com.google.common.collect.Maps;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fw.know.go.datasource.domain.entity.BaseEntity;
 import com.fw.know.go.notice.domain.constant.NoticeState;
 import com.fw.know.go.notice.domain.constant.NoticeType;
@@ -21,6 +22,7 @@ import java.util.Map;
 @Getter
 @Setter
 @Builder
+@TableName(value = "notice", schema = "system_schema")
 public class Notice extends BaseEntity {
 
     /**
