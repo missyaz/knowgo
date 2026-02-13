@@ -11,6 +11,6 @@ public class SmsServiceImpl implements SmsService{
 
     @Override
     public SmsSendResponse sendMsg(String mobile, String content) {
-        return null;
+        return new SmsSendResponse.Builder().setSuccess(true).build();
     }
 }
