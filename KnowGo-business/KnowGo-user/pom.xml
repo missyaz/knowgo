@@ -22,5 +22,30 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-rpc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-cache</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-datasource</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-base</artifactId>
+        </dependency>
     </dependencies>
 </project>

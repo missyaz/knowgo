@@ -1,0 +1,31 @@
+package com.fw.know.go.base.exception;
+
+/**
+ * @Description
+ * @Date 27/2/2026 上午10:01
+ * @Author Leo
+ */
+public enum RepoErrorCode implements ErrorCode {
+    /**
+     * 数据库更新失败
+     */
+    UPDATE_FAILED("UPDATE_FAILED", "数据库更新失败");
+
+    private final String code;
+
+    private final String message;
+
+    RepoErrorCode(String code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+    @Override
+    public String getCode() {
+        return this.code;
+    }
+
+    @Override
+    public String getMessage() {
+        return this.message;
+    }
+}
