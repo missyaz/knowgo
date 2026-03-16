@@ -3,6 +3,8 @@ package com.fw.know.go.user.domain.service;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.digest.DigestUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fw.know.go.api.user.constant.UserOperateTypeEnum;
 import com.fw.know.go.api.user.response.UserOperatorResponse;
@@ -13,7 +15,6 @@ import com.fw.know.go.user.infrastructure.exception.UserErrorCode;
 import com.fw.know.go.user.infrastructure.exception.UserException;
 import com.fw.know.go.user.infrastructure.mapper.UserMapper;
 import com.fw.know.go.user.infrastructure.mapper.UserMapperService;
-import com.fw.know.go.user.infrastructure.mapper.UserOperatorStreamMapperService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ import static com.fw.know.go.user.infrastructure.exception.UserErrorCode.*;
  * @Author Leo
  */
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements InitializingBean {
+public class UserService extends ServiceImpl<UserMapper, User> implements InitializingBean {
 
     private static final String DEFAULT_NICK_NAME_PREFIX = "藏家_";
 
@@ -37,10 +38,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements In
     @Autowired
     private UserOperatorStreamService userOperatorStreamService;
 
+    /**
+     * 用户注册方法，带有事务管理，遇到任何异常都会回滚
+     * @param telephone 用户手机号
+     * @param inviteCode 邀请码
+     * @return UserOperatorResponse 注册结果响应对象
+     */
     @Transactional(rollbackFor = Exception.class)
     public UserOperatorResponse register(String telephone, String inviteCode){
-        String defaultNickName;
-        String randomString;
+        String defaultNickName;  // 默认昵称
+        String randomString;     // 随机字符串
         // 昵称、邀请码重复时，使用默认昵称
         do {
             randomString = RandomUtil.randomString(6).toUpperCase();
@@ -91,6 +98,30 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements In
         User user = new User();
         user.register(telephone, nickName, password, inviteCode, inviterId);
         return save(user) ? user : null;
+    }
+
+    /**
+     * 根据电话号码获取用户信息
+     * @param telephone 用户的电话号码
+     * @return 返回对应用户信息，如果未找到则返回null
+     */
+    public User getByTelephone(String telephone) {
+        LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(User::getTelephone, telephone);
+        return this.getOne(wrapper);
+    }
+
+    /**
+     * 根据手机号和密码获取用户信息
+     * @param telephone 用户的手机号码
+     * @param password 用户的密码
+     * @return 返回匹配的用户对象，如果没有找到则返回null
+     */
+    public User getByPhoneAndPassword(String telephone, String password) {
+        LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(User::getTelephone, telephone);
+        wrapper.eq(User::getPasswordHash, DigestUtil.md5Hex(password));
+        return this.getOne(wrapper);
     }
 
 

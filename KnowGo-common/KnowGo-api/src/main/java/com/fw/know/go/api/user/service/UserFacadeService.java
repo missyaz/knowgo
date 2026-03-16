@@ -1,7 +1,10 @@
 package com.fw.know.go.api.user.service;
 
+import com.fw.know.go.api.user.request.UserQueryRequest;
 import com.fw.know.go.api.user.request.UserRegisterRequest;
 import com.fw.know.go.api.user.response.UserOperatorResponse;
+import com.fw.know.go.api.user.response.UserQueryResponse;
+import com.fw.know.go.api.user.response.data.UserInfo;
 
 /**
  * @Description
@@ -9,6 +12,13 @@ import com.fw.know.go.api.user.response.UserOperatorResponse;
  * @Author Leo
  */
 public interface UserFacadeService {
+
+    /**
+     * 查询用户信息
+     * @param userQueryRequest 查询参数
+     * @return 相应结果
+     */
+    UserQueryResponse<UserInfo> query(UserQueryRequest userQueryRequest);
 
     /**
      * 用户注册

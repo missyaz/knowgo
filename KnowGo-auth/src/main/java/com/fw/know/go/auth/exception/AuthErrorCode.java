@@ -11,7 +11,12 @@ public enum AuthErrorCode implements ErrorCode {
     /**
      * 验证码错误
      */
-    VERIFICATION_CODE_WRONG("VERIFICATION_CODE_WRONG", "验证码错误")
+    VERIFICATION_CODE_WRONG("VERIFICATION_CODE_WRONG", "验证码错误"),
+
+    /**
+     * 注册失败
+     */
+    REGISTER_ERROR("REGISTER_ERROR", "注册失败"),
     ;
 
     private final String code;
