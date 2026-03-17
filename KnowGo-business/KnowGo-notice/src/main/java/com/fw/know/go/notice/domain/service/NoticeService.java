@@ -1,14 +1,14 @@
-package com.fw.know.go.user.domain.service;
+package com.fw.know.go.notice.domain.service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.fw.know.go.user.domain.constant.NoticeState;
-import com.fw.know.go.user.domain.constant.NoticeType;
-import com.fw.know.go.user.domain.entity.Notice;
-import com.fw.know.go.user.infrastructure.exception.NoticeException;
-import com.fw.know.go.user.infrastructure.mapper.NoticeMapper;
+import com.fw.know.go.notice.domain.constant.NoticeState;
+import com.fw.know.go.notice.domain.constant.NoticeType;
+import com.fw.know.go.notice.domain.entity.Notice;
+import com.fw.know.go.notice.infrastructure.exception.NoticeException;
+import com.fw.know.go.notice.infrastructure.mapper.NoticeMapper;
 import org.springframework.stereotype.Service;
 
-import static com.fw.know.go.user.infrastructure.exception.NoticeErrorCode.NOTICE_SAVE_FAILED;
+import static com.fw.know.go.notice.infrastructure.exception.NoticeErrorCode.NOTICE_SAVE_FAILED;
 
 /**
  * @Description 通知服务

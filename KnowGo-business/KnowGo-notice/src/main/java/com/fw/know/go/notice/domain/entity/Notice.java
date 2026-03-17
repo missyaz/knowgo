@@ -1,12 +1,12 @@
-package com.fw.know.go.user.domain.entity;
+package com.fw.know.go.notice.domain.entity;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.TypeReference;
 import com.alibaba.nacos.shaded.com.google.common.collect.Maps;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fw.know.go.datasource.domain.entity.BaseEntity;
-import com.fw.know.go.user.domain.constant.NoticeState;
-import com.fw.know.go.user.domain.constant.NoticeType;
+import com.fw.know.go.notice.domain.constant.NoticeState;
+import com.fw.know.go.notice.domain.constant.NoticeType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

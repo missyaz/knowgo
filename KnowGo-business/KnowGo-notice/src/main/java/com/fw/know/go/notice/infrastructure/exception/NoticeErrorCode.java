@@ -1,4 +1,4 @@
-package com.fw.know.go.user.infrastructure.exception;
+package com.fw.know.go.notice.infrastructure.exception;
 
 import com.fw.know.go.base.exception.ErrorCode;
 

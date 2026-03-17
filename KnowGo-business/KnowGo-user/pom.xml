@@ -14,6 +14,7 @@
     <url>http://maven.apache.org</url>
 
     <properties>
+        <application.name>KnowGo-user</application.name>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -46,6 +47,11 @@
         <dependency>
             <groupId>com.fw</groupId>
             <artifactId>KnowGo-base</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-skywalking</artifactId>
         </dependency>
     </dependencies>
 </project>

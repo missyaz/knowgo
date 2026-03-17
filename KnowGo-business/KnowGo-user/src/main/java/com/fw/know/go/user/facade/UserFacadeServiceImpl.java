@@ -29,17 +29,15 @@ public class UserFacadeServiceImpl implements UserFacadeService {
 
     @Override
     public UserQueryResponse<UserInfo> query(UserQueryRequest userQueryRequest) {
-        User user = switch (userQueryRequest.getUserQueryCondition()){
-            case UserIdQueryCondition userIdQueryCondition:
-                yield userService.getById(userIdQueryCondition.getUserId());
-            case UserPhoneQueryCondition userPhoneQueryCondition:
-                yield userService.getByTelephone(userPhoneQueryCondition.getTelephone());
-            case UserPhoneAndPasswordCondition userPhoneAndPasswordCondition:
-                yield userService.getByPhoneAndPassword(userPhoneAndPasswordCondition.getTelephone(),
-                        userPhoneAndPasswordCondition.getPassword());
-            default:
-                throw new UnsupportedOperationException(userQueryRequest.getUserQueryCondition() + "'' is not " +
-                        "supported");
+        User user = switch (userQueryRequest.getUserQueryCondition()) {
+            case UserIdQueryCondition userIdQueryCondition -> userService.getById(userIdQueryCondition.getUserId());
+            case UserPhoneQueryCondition userPhoneQueryCondition ->
+                    userService.getByTelephone(userPhoneQueryCondition.getTelephone());
+            case UserPhoneAndPasswordCondition userPhoneAndPasswordCondition ->
+                    userService.getByPhoneAndPassword(userPhoneAndPasswordCondition.getTelephone(),
+                            userPhoneAndPasswordCondition.getPassword());
+            default -> throw new UnsupportedOperationException(userQueryRequest.getUserQueryCondition() + "'' is not " +
+                    "supported");
         };
 
         UserQueryResponse<UserInfo> userQueryResponse = new UserQueryResponse<>();

@@ -1,4 +1,4 @@
-package com.fw.know.go.user;
+package com.fw.know.go.notice;
 
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;

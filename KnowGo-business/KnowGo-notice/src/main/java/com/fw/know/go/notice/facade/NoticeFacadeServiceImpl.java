@@ -1,12 +1,13 @@
-package com.fw.know.go.user.facade;
+package com.fw.know.go.notice.facade;
 
 import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson2.JSON;
 import com.fw.know.go.api.notice.response.NoticeResponse;
 import com.fw.know.go.api.notice.service.NoticeFacadeService;
-import com.fw.know.go.user.domain.constant.NoticeState;
-import com.fw.know.go.user.domain.entity.Notice;
-import com.fw.know.go.user.domain.service.NoticeService;
+import com.fw.know.go.rpc.facade.Facade;
+import com.fw.know.go.notice.domain.constant.NoticeState;
+import com.fw.know.go.notice.domain.entity.Notice;
+import com.fw.know.go.notice.domain.service.NoticeService;
 import com.fw.know.go.sms.SmsService;
 import com.fw.know.go.sms.response.SmsSendResponse;
 import org.apache.dubbo.config.annotation.DubboService;
@@ -36,6 +37,7 @@ public class NoticeFacadeServiceImpl implements NoticeFacadeService {
     private SmsService smsService;
 
     @Override
+    @Facade
     public NoticeResponse generateAndSendSmsCaptcha(String telephone) {
 
         // 生成验证码

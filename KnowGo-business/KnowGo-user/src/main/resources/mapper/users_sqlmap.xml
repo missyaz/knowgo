@@ -17,8 +17,8 @@
         <result property="blockChainUrl" column="BLOCK_CHAIN_URL"/>
         <result property="blockChainPlatform" column="BLOCK_CHAIN_PLATFORM"/>
         <result property="certification" column="CERTIFICATION"/>
-        <result property="realName" column="REAL_NAME" typeHandler="cn.hollis.nft.turbo.user.infrastructure.mapper.AesEncryptTypeHandler"/>
-        <result property="idCardNo" column="ID_CARD_NO" typeHandler="cn.hollis.nft.turbo.user.infrastructure.mapper.AesEncryptTypeHandler"/>
+        <result property="realName" column="REAL_NAME" typeHandler="com.fw.know.go.user.infrastructure.mapper.AesEncryptTypeHandler"/>
+        <result property="idCardNo" column="ID_CARD_NO" typeHandler="com.fw.know.go.user.infrastructure.mapper.AesEncryptTypeHandler"/>
         <result property="userRole" column="USER_ROLE"/>
         <result property="deleted" column="DELETED"/>
         <result property="lockVersion" column="LOCK_VERSION"/>

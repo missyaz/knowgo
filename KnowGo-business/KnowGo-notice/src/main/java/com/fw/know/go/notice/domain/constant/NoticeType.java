@@ -1,4 +1,4 @@
-package com.fw.know.go.user.domain.constant;
+package com.fw.know.go.notice.domain.constant;
 
 /**
  * @Description

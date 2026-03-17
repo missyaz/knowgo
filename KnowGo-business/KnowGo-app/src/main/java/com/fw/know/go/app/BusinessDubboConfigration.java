@@ -1,6 +1,7 @@
 package com.fw.know.go.app;
 
 import com.fw.know.go.api.notice.service.NoticeFacadeService;
+import com.fw.know.go.api.user.service.UserFacadeService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -17,9 +18,18 @@ public class BusinessDubboConfigration {
     @DubboReference(version = "1.0.0")
     private NoticeFacadeService noticeFacadeService;
 
+    @DubboReference(version = "1.0.0")
+    private UserFacadeService userFacadeService;
+
     @Bean
     @ConditionalOnMissingBean(name = "noticeFacadeService")
     public NoticeFacadeService noticeFacadeService(){
         return noticeFacadeService;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(name = "userFacadeService")
+    public UserFacadeService userFacadeService(){
+        return userFacadeService;
     }
 }

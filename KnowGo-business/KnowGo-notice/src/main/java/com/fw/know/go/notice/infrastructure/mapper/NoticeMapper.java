@@ -1,7 +1,7 @@
-package com.fw.know.go.user.infrastructure.mapper;
+package com.fw.know.go.notice.infrastructure.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.fw.know.go.user.domain.entity.Notice;
+import com.fw.know.go.notice.domain.entity.Notice;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
