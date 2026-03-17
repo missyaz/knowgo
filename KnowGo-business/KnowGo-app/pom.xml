@@ -28,6 +28,11 @@
 
         <dependency>
             <groupId>com.fw</groupId>
+            <artifactId>KnowGo-user</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fw</groupId>
             <artifactId>KnowGo-skywalking</artifactId>
         </dependency>
 
