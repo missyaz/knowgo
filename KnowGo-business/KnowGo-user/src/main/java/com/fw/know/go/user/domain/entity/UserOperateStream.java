@@ -14,7 +14,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
-@TableName("user_operate_stream")
+@TableName(value = "user_operate_stream", schema = "user_schema")
 public class UserOperateStream extends BaseEntity {
 
     /**

@@ -20,7 +20,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
-@TableName("users")
+@TableName(value = "users", schema = "user_schema")
 public class User extends BaseEntity {
 
     /**

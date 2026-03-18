@@ -1,5 +1,6 @@
 package com.fw.know.go.api.user.request;
 
+import com.fw.know.go.base.request.BaseRequest;
 import lombok.*;
 
 /**
@@ -12,7 +13,7 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRegisterRequest {
+public class UserRegisterRequest extends BaseRequest {
 
     /**
      * 手机号

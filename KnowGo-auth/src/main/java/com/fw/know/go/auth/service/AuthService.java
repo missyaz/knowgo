@@ -109,17 +109,10 @@ public class AuthService {
             }
             userQueryResponse = userFacadeService.query(userQueryRequest);
             userInfo = userQueryResponse.getData();
-            StpUtil.login(userInfo.getUserId(),
-                    new SaLoginParameter().setIsLastingCookie(loginParam.getRememberMe()).setTimeout(DEFAULT_LOGIN_SESSION_TIMEOUT));
-            StpUtil.getSession().set(userInfo.getUserId().toString(), userInfo);
-            return new LoginVO(userInfo);
         }
-        else {
-            // 登录
-            StpUtil.login(userInfo.getUserId(),
-                    new SaLoginParameter().setIsLastingCookie(loginParam.getRememberMe()).setTimeout(DEFAULT_LOGIN_SESSION_TIMEOUT));
-            StpUtil.getSession().set(userInfo.getUserId().toString(), userInfo);
-            return new LoginVO(userInfo);
-        }
+        StpUtil.login(userInfo.getUserId(),
+                new SaLoginParameter().setIsLastingCookie(loginParam.getRememberMe()).setTimeout(DEFAULT_LOGIN_SESSION_TIMEOUT));
+//        StpUtil.getSession().set(userInfo.getUserId().toString(), userInfo);
+        return new LoginVO(userInfo);
     }
 }
