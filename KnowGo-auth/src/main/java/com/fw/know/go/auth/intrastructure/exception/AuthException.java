@@ -1,4 +1,4 @@
-package com.fw.know.go.auth.exception;
+package com.fw.know.go.auth.intrastructure.exception;
 
 import com.fw.know.go.base.exception.BizException;
 import com.fw.know.go.base.exception.ErrorCode;

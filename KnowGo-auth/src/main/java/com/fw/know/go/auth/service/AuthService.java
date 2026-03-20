@@ -1,10 +1,8 @@
 package com.fw.know.go.auth.service;
 
-import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.stp.parameter.SaLoginParameter;
 import cn.hutool.core.util.StrUtil;
-import com.fw.know.go.api.notice.response.NoticeResponse;
 import com.fw.know.go.api.notice.service.NoticeFacadeService;
 import com.fw.know.go.api.user.request.UserQueryRequest;
 import com.fw.know.go.api.user.request.UserRegisterRequest;
@@ -12,12 +10,10 @@ import com.fw.know.go.api.user.response.UserOperatorResponse;
 import com.fw.know.go.api.user.response.UserQueryResponse;
 import com.fw.know.go.api.user.response.data.UserInfo;
 import com.fw.know.go.api.user.service.UserFacadeService;
-import com.fw.know.go.auth.exception.AuthErrorCode;
-import com.fw.know.go.auth.exception.AuthException;
+import com.fw.know.go.auth.intrastructure.exception.AuthException;
 import com.fw.know.go.auth.param.LoginParam;
 import com.fw.know.go.auth.param.RegisterParam;
 import com.fw.know.go.auth.vo.LoginVO;
-import com.fw.know.go.web.vo.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +21,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import static com.fw.know.go.api.notice.constant.NoticeConstant.CAPTCHA_KEY_PREFIX;
-import static com.fw.know.go.auth.exception.AuthErrorCode.REGISTER_ERROR;
-import static com.fw.know.go.auth.exception.AuthErrorCode.VERIFICATION_CODE_WRONG;
+import static com.fw.know.go.auth.intrastructure.exception.AuthErrorCode.REGISTER_ERROR;
+import static com.fw.know.go.auth.intrastructure.exception.AuthErrorCode.VERIFICATION_CODE_WRONG;
 
 /**
  * @Description
@@ -112,7 +108,7 @@ public class AuthService {
         }
         StpUtil.login(userInfo.getUserId(),
                 new SaLoginParameter().setIsLastingCookie(loginParam.getRememberMe()).setTimeout(DEFAULT_LOGIN_SESSION_TIMEOUT));
-//        StpUtil.getSession().set(userInfo.getUserId().toString(), userInfo);
+        StpUtil.getSession().set(userInfo.getUserId().toString(), userInfo);
         return new LoginVO(userInfo);
     }
 }
