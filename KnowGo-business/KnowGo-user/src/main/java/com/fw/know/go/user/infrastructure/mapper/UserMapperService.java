@@ -30,4 +30,11 @@ public class UserMapperService {
         }
         return userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getTelephone, telephone));
     }
+
+    public User findByNickName(String nickName) {
+        if (StrUtil.isBlankIfStr(nickName)){
+            return null;
+        }
+        return userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getNickName, nickName));
+    }
 }

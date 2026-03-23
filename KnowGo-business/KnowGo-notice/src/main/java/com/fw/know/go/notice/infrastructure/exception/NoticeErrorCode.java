@@ -12,7 +12,12 @@ public enum NoticeErrorCode implements ErrorCode {
     /**
      * 通知保存失败
      */
-    NOTICE_SAVE_FAILED("NOTICE_SAVE_FAILED", "通知保存失败");
+    NOTICE_SAVE_FAILED("NOTICE_SAVE_FAILED", "通知保存失败"),
+
+    /**
+     * 不允许重复发送通知
+     */
+    SEND_NOTICE_DUPLICATED("SEND_NOTICE_DUPLICATED", "不允许重复发送通知");
 
     private final String code;
 

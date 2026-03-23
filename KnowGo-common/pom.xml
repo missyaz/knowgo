@@ -26,6 +26,7 @@
         <module>KnowGo-api</module>
         <module>KnowGo-sms</module>
         <module>KnowGo-vector</module>
+        <module>KnowGo-limiter</module>
     </modules>
 
     <properties>

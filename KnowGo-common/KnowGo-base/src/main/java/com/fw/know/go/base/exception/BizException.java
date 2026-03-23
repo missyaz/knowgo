@@ -3,6 +3,8 @@ package com.fw.know.go.base.exception;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 /**
  * @Classname BizException
  * @Description 业务异常
@@ -11,7 +13,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class BizException extends RuntimeException {
+public class BizException extends RuntimeException implements Serializable {
 
     private ErrorCode errorCode;
 

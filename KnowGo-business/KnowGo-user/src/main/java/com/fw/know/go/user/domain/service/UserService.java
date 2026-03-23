@@ -15,6 +15,8 @@ import com.fw.know.go.user.infrastructure.exception.UserErrorCode;
 import com.fw.know.go.user.infrastructure.exception.UserException;
 import com.fw.know.go.user.infrastructure.mapper.UserMapper;
 import com.fw.know.go.user.infrastructure.mapper.UserMapperService;
+import org.redisson.api.RBloomFilter;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +39,19 @@ public class UserService extends ServiceImpl<UserMapper, User> implements Initia
 
     @Autowired
     private UserOperatorStreamService userOperatorStreamService;
+
+    @Autowired
+    private RedissonClient redissonClient;
+
+    /**
+     * 用户名布隆过滤器
+     */
+    private RBloomFilter<String> nickNameBloomFilter;
+
+    /**
+     * 邀请码布隆过滤器
+     */
+    private RBloomFilter<String> inviteCodeBloomFilter;
 
     /**
      * 用户注册方法，带有事务管理，遇到任何异常都会回滚
@@ -68,8 +83,10 @@ public class UserService extends ServiceImpl<UserMapper, User> implements Initia
         User user = this.register(telephone, defaultNickName, telephone, randomString, inviterId);
         Assert.notNull(user, UserErrorCode.USER_OPERATE_FAILED.getCode());
 
-        // 校验昵称
-        // 校验验证码
+        // 添加昵称
+        addNickName(defaultNickName);
+        // 添加验证码
+        addInviteCode(randomString);
 
         // 加入流水
         Long streamResult = userOperatorStreamService.insertStream(user, UserOperateTypeEnum.REGISTER);
@@ -79,6 +96,20 @@ public class UserService extends ServiceImpl<UserMapper, User> implements Initia
         userOperatorResponse.setSuccess(true);
 
         return userOperatorResponse;
+    }
+
+    private boolean addNickName(String nickName){
+        if (StrUtil.isNotBlank(nickName)){
+            return this.nickNameBloomFilter != null && this.nickNameBloomFilter.add(nickName);
+        }
+        return true;
+    }
+
+    private boolean addInviteCode(String inviteCode){
+        if (StrUtil.isNotBlank(inviteCode)){
+            return this.inviteCodeBloomFilter != null && this.inviteCodeBloomFilter.add(inviteCode);
+        }
+        return true;
     }
 
     /**
@@ -127,16 +158,32 @@ public class UserService extends ServiceImpl<UserMapper, User> implements Initia
 
     public boolean nickNameExist(String nickName){
         // 如果布隆过滤器中存在，再进行数据库二次判断
+        if (this.nickNameBloomFilter != null && this.nickNameBloomFilter.contains(nickName)){
+            return userMapperService.findByNickName(nickName) != null;
+        }
+
         return false;
     }
 
     public boolean inviteCodeExist(String inviteCode){
         // 如果布隆过滤器中存在，再进行数据库二次判断
+        if (this.inviteCodeBloomFilter != null && this.inviteCodeBloomFilter.contains(inviteCode)){
+            return userMapperService.findByInviteCode(inviteCode) != null;
+        }
+
         return false;
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
+        this.nickNameBloomFilter = redissonClient.getBloomFilter("nickName");
+        if (nickNameBloomFilter != null && !nickNameBloomFilter.isExists()){
+            this.nickNameBloomFilter.tryInit(100000L, 0.01);
+        }
 
+        this.inviteCodeBloomFilter = redissonClient.getBloomFilter("inviteCode");
+        if (inviteCodeBloomFilter != null && !inviteCodeBloomFilter.isExists()){
+            this.inviteCodeBloomFilter.tryInit(100000L, 0.01);
+        }
     }
 }

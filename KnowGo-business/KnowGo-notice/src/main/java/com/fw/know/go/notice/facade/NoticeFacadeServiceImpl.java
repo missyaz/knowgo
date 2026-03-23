@@ -4,6 +4,8 @@ import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson2.JSON;
 import com.fw.know.go.api.notice.response.NoticeResponse;
 import com.fw.know.go.api.notice.service.NoticeFacadeService;
+import com.fw.know.go.base.exception.SystemException;
+import com.fw.know.go.limiter.SlidingWindowRateLimiter;
 import com.fw.know.go.rpc.facade.Facade;
 import com.fw.know.go.notice.domain.constant.NoticeState;
 import com.fw.know.go.notice.domain.entity.Notice;
@@ -18,6 +20,7 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import static com.fw.know.go.api.notice.constant.NoticeConstant.CAPTCHA_KEY_PREFIX;
+import static com.fw.know.go.notice.infrastructure.exception.NoticeErrorCode.*;
 
 /**
  * @Description
@@ -26,6 +29,9 @@ import static com.fw.know.go.api.notice.constant.NoticeConstant.CAPTCHA_KEY_PREF
  */
 @DubboService(version = "1.0.0")
 public class NoticeFacadeServiceImpl implements NoticeFacadeService {
+
+    @Autowired
+    private SlidingWindowRateLimiter slidingWindowRateLimiter;
 
     @Autowired
     private StringRedisTemplate redisTemplate;
@@ -39,6 +45,11 @@ public class NoticeFacadeServiceImpl implements NoticeFacadeService {
     @Override
     @Facade
     public NoticeResponse generateAndSendSmsCaptcha(String telephone) {
+
+        Boolean access = slidingWindowRateLimiter.tryAcquire(telephone, 3, 30);
+        if (!access){
+            throw new SystemException(SEND_NOTICE_DUPLICATED);
+        }
 
         // 生成验证码
         String captcha = RandomUtil.randomNumbers(4);

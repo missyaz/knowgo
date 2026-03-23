@@ -65,6 +65,11 @@
             <groupId>com.fw</groupId>
             <artifactId>KnowGo-config</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-limiter</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
