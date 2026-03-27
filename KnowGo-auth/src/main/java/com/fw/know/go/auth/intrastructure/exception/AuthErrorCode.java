@@ -17,6 +17,21 @@ public enum AuthErrorCode implements ErrorCode {
      * 注册失败
      */
     REGISTER_ERROR("REGISTER_ERROR", "注册失败"),
+
+    /**
+     * scene不合法
+     */
+    TOKEN_SCENE_NOT_EXIST("TOKEN_SCENE_NOT_EXIST", "scene不合法"),
+
+    /**
+     * token key不合法
+     */
+    TOKEN_KEY_IS_ILLEGAL("TOKEN_KEY_IS_ILLEGAL", "key不合法"),
+
+    /**
+     * 用户未登录
+     */
+    USER_NOT_LOGIN("USER_NOT_LOGIN", "用户未登录"),
     ;
 
     private final String code;
