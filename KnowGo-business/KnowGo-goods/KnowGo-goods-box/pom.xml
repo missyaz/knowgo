@@ -3,24 +3,24 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.fw</groupId>
-        <artifactId>KnowGo</artifactId>
+        <artifactId>KnowGo-goods</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <modules>
-        <module>KnowGo-rag</module>
-        <module>KnowGo-user</module>
-        <module>KnowGo-notice</module>
-        <module>KnowGo-app</module>
-        <module>KnowGo-goods</module>
-    </modules>
+    <artifactId>KnowGo-goods-box</artifactId>
+    <packaging>jar</packaging>
 
-    <artifactId>KnowGo-business</artifactId>
-    <packaging>pom</packaging>
-    <description>业务模块，提供业务的相关操作</description>
+    <name>KnowGo-goods-box</name>
+    <description>商品盲盒模块</description>
 
     <properties>
+        <application.name>KnwoGo-goods-box</application.name>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <dependencies>
+
+    </dependencies>
 </project>

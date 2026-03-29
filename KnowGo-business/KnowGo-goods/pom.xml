@@ -3,18 +3,24 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.fw</groupId>
-        <artifactId>KnowGo-common</artifactId>
+        <artifactId>KnowGo-business</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>KnowGo-api</artifactId>
-    <packaging>jar</packaging>
-    <description>API组件，主要统一管理项目中的Dubbo远程调用</description>
+    <artifactId>KnowGo-goods</artifactId>
+    <description>商品模块</description>
+    <modules>
+        <module>KnowGo-goods-interface</module>
+        <module>KnowGo-goods-box</module>
+        <module>KnowGo-goods-collection</module>
+    </modules>
+    <packaging>pom</packaging>
 
-    <name>KnowGo-api</name>
+    <name>KnowGo-goods</name>
     <url>http://maven.apache.org</url>
 
     <properties>
+        <application.name>KnwoGo-goods</application.name>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -23,12 +29,7 @@
     <dependencies>
         <dependency>
             <groupId>com.fw</groupId>
-            <artifactId>KnowGo-base</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fw</groupId>
-            <artifactId>KnowGo-web</artifactId>
+            <artifactId>KnowGo-skywalking</artifactId>
         </dependency>
     </dependencies>
 </project>
