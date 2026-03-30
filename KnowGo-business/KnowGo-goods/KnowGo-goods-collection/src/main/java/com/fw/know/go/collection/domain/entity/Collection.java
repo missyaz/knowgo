@@ -2,6 +2,8 @@ package com.fw.know.go.collection.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fw.know.go.api.collections.constant.CollectionStateEnum;
+import com.fw.know.go.api.collections.request.CollectionCreateRequest;
+import com.fw.know.go.collection.domain.entity.convertor.CollectionConvertor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,7 +19,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-@TableName(value = "collection")
+@TableName(value = "collection", schema = "goods_schema")
 public class Collection {
 
     /**
@@ -110,7 +112,17 @@ public class Collection {
      */
     private Integer canBook;
 
-    public static Collection create(){
+    public static Collection create(CollectionCreateRequest request){
+        Collection collection = CollectionConvertor.INSTANCE.mapToEntity(request);
+        collection.setOccupiedInventory(0L);
+        collection.setSaleableInventory(request.getQuantity());
+        collection.setState(CollectionStateEnum.INIT);
+        collection.setVersion(1);
+        return collection;
+    }
 
+    public Collection remove(){
+        this.state = CollectionStateEnum.REMOVED;
+        return this;
     }
 }

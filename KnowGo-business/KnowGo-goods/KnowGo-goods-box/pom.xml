@@ -21,6 +21,29 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-base</artifactId>
+        </dependency>
 
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-rpc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-datasource</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-web</artifactId>
+        </dependency>
     </dependencies>
 </project>

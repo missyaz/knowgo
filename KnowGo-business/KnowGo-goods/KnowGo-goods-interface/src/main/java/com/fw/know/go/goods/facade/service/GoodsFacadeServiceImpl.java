@@ -1,9 +1,18 @@
 package com.fw.know.go.goods.facade.service;
 
+import com.fw.know.go.api.box.model.BlindBoxVO;
+import com.fw.know.go.api.box.service.BlindBoxReadFacadeService;
+import com.fw.know.go.api.collections.model.CollectionVO;
+import com.fw.know.go.api.collections.service.CollectionReadFacadeService;
 import com.fw.know.go.api.goods.constant.GoodsType;
 import com.fw.know.go.api.goods.model.BaseGoodsVO;
 import com.fw.know.go.api.goods.service.GoodsFacadeService;
+import com.fw.know.go.base.response.SingleResponse;
+import com.fw.know.go.box.domain.service.BlindBoxService;
+import com.fw.know.go.collection.domain.entity.Collection;
+import com.fw.know.go.collection.domain.service.CollectionService;
 import org.apache.dubbo.config.annotation.DubboService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,15 +26,29 @@ public class GoodsFacadeServiceImpl implements GoodsFacadeService {
 
     public static final String ERROR_CODE_UNSUPPORTED_GOODS_TYPE = "UNSUPPORTED_GOODS_TYPE";
 
+    @Autowired
+    private CollectionReadFacadeService collectionReadFacadeService;
+
+    @Autowired
+    private BlindBoxReadFacadeService blindBoxReadFacadeService;
+
     @Override
     public BaseGoodsVO getGoods(String goodsId, GoodsType goodsType) {
         return switch (goodsType) {
             case COLLECTION -> {
-                // TODO： 藏品 Dubbo 查询实现
+                SingleResponse<CollectionVO> response = collectionReadFacadeService.queryById(Long.valueOf(goodsId));
+                if (response.getSuccess()){
+                    yield response.getData();
+                }
+                yield null;
             }
 
             case BLIND_BOX -> {
-                // TODO： 盲盒 Dubbo 查询实现
+                SingleResponse<BlindBoxVO> response = blindBoxReadFacadeService.queryById(Long.valueOf(goodsId));
+                if (response.getSuccess()){
+                    yield response.getData();
+                }
+                yield null;
             }
 
             default -> throw new UnsupportedOperationException(ERROR_CODE_UNSUPPORTED_GOODS_TYPE);

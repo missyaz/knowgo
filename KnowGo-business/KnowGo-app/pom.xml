@@ -23,6 +23,18 @@
     <dependencies>
         <dependency>
             <groupId>com.fw</groupId>
+            <artifactId>KnowGo-goods-interface</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-goods-box</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-goods-collection</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fw</groupId>
             <artifactId>KnowGo-notice</artifactId>
         </dependency>
 
