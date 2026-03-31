@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fw.know.go.api.collections.constant.CollectionStateEnum;
 import com.fw.know.go.api.collections.request.CollectionCreateRequest;
 import com.fw.know.go.collection.domain.entity.convertor.CollectionConvertor;
+import com.fw.know.go.datasource.domain.entity.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -20,7 +21,7 @@ import java.util.Date;
 @Setter
 @ToString
 @TableName(value = "collection", schema = "goods_schema")
-public class Collection {
+public class Collection extends BaseEntity {
 
     /**
      * 藏品名称

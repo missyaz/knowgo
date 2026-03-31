@@ -73,7 +73,7 @@ public class BlindBox extends BaseEntity {
     /**
      * 冻结库存
      */
-    private Long fronzenInventory;
+    private Long frozenInventory;
 
     /**
      * 盲盒创建时间
