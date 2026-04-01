@@ -14,7 +14,8 @@ import static com.fw.know.go.cache.constant.CacheConstant.CACHE_KEY_SEPARATOR;
  */
 public class TokenUtil {
 
-    private static final String TOKEN_AES_KEY = "tokenbyknowgo_0";
+    // 32位密钥串
+    private static final String TOKEN_AES_KEY = "tokenbyknowgo_01";
 
     public static final String TOKEN_PREFIX = "token:";
 
