@@ -272,6 +272,16 @@
                 <artifactId>KnowGo-goods-interface</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.fw</groupId>
+                <artifactId>KnowGo-order</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fw</groupId>
+                <artifactId>KnowGo-order-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

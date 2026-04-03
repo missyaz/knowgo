@@ -7,12 +7,11 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>KnowGo-web</artifactId>
+    <artifactId>KnowGo-order-client</artifactId>
     <packaging>jar</packaging>
 
-    <name>KnowGo-web</name>
-    <url>http://maven.apache.org</url>
-    <description>公共模块里的web模块，包含控制器的全局异常处理，Web全局响应结构等Web相关的内容</description>
+    <name>KnowGo-order-client</name>
+    <description>拆分订单模块部分逻辑</description>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -23,20 +22,12 @@
     <dependencies>
         <dependency>
             <groupId>com.fw</groupId>
-            <artifactId>KnowGo-base</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fw</groupId>
-            <artifactId>KnowGo-cache</artifactId>
+            <artifactId>KnowGo-api</artifactId>
         </dependency>
 
         <dependency>
             <groupId>com.fw</groupId>
-            <artifactId>KnowGo-sa-token</artifactId>
+            <artifactId>KnowGo-cache</artifactId>
         </dependency>
     </dependencies>
 </project>

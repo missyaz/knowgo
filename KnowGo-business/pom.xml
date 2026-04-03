@@ -13,6 +13,8 @@
         <module>KnowGo-notice</module>
         <module>KnowGo-app</module>
         <module>KnowGo-goods</module>
+        <module>KnowGo-order</module>
+        <module>KnowGo-trade</module>
     </modules>
 
     <artifactId>KnowGo-business</artifactId>

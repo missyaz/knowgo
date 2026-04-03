@@ -27,6 +27,7 @@
         <module>KnowGo-sms</module>
         <module>KnowGo-vector</module>
         <module>KnowGo-limiter</module>
+        <module>KnowGo-order-client</module>
     </modules>
 
     <properties>

@@ -1,0 +1,13 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: @application.name@
+  config:
+    import:
+    - classpath:base.yml
+    - classpath:rpc.yml
+    - classpath:cache.yml
+#    - classpath:stream.yml
+#    - classpath:limiter.yml

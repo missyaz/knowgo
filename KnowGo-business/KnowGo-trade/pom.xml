@@ -1,0 +1,69 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.fw</groupId>
+        <artifactId>KnowGo-business</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>KnowGo-trade</artifactId>
+    <packaging>jar</packaging>
+
+    <name>KnowGo-trade</name>
+    <description>交易模块，负责交易相关的业务逻辑；包括订单和支付的业务编排</description>
+
+    <properties>
+        <application.name>KnowGo-trade</application.name>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-base</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-order</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-rpc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-cache</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-config</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-skywalking</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-order-client</artifactId>
+        </dependency>
+    </dependencies>
+</project>
