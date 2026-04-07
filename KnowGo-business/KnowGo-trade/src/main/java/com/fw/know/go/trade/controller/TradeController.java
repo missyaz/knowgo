@@ -1,5 +1,6 @@
 package com.fw.know.go.trade.controller;
 
+import com.fw.know.go.order.OrderException;
 import com.fw.know.go.trade.exception.TradeErrorCode;
 import com.fw.know.go.trade.exception.TradeException;
 import com.fw.know.go.trade.param.BuyParam;
@@ -32,7 +33,7 @@ public class TradeController {
         try {
             return Result.success(tradeService.normalBuy(buyParam));
         }
-        catch (TradeException e){
+        catch (OrderException | TradeException e){
             return Result.error(e.getErrorCode().getCode(), e.getErrorCode().getMessage());
         }
         catch (Exception e){

@@ -50,5 +50,10 @@
             <groupId>com.fw</groupId>
             <artifactId>KnowGo-skywalking</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-order-client</artifactId>
+        </dependency>
     </dependencies>
 </project>

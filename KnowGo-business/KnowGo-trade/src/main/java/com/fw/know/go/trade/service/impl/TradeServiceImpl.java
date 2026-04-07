@@ -6,8 +6,14 @@ import com.fw.know.go.api.goods.constant.GoodsType;
 import com.fw.know.go.api.goods.model.BaseGoodsVO;
 import com.fw.know.go.api.goods.service.GoodsFacadeService;
 import com.fw.know.go.api.order.request.OrderCreateAndConfirmRequest;
+import com.fw.know.go.api.order.response.OrderResponse;
+import com.fw.know.go.api.user.constant.UserType;
+import com.fw.know.go.base.utils.RemoteCallWrapper;
+import com.fw.know.go.order.OrderException;
 import com.fw.know.go.order.sharding.id.DistributeID;
 import com.fw.know.go.order.sharding.id.WorkerIdHolder;
+import com.fw.know.go.order.validator.OrderCreateValidator;
+import com.fw.know.go.trade.application.TradeApplicationService;
 import com.fw.know.go.trade.exception.TradeErrorCode;
 import com.fw.know.go.trade.exception.TradeException;
 import com.fw.know.go.trade.param.BuyParam;
@@ -17,6 +23,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.util.Date;
 
 import static com.fw.know.go.web.filter.TokenFilter.TOKEN_THREAD_LOCAL;
 
@@ -32,12 +41,22 @@ public class TradeServiceImpl implements TradeService {
 
     private final GoodsFacadeService goodsFacadeService;
 
+    private final OrderCreateValidator orderCreateValidatorChain;
+
+    private final TradeApplicationService tradeApplicationService;
+
     @Override
     public String normalBuy(BuyParam buyParam) {
         OrderCreateAndConfirmRequest orderCreateAndConfirmRequest = getOrderCreateAndConfirmRequest(buyParam);
         // 校验创建确认订单参数
-        // 校验下单参数
-        return "";
+        orderCreateValidatorChain.validate(orderCreateAndConfirmRequest);
+        OrderResponse orderResponse = RemoteCallWrapper.call(tradeApplicationService::normalBuy, orderCreateAndConfirmRequest,
+                "createOrder");
+
+        if (orderResponse.getSuccess()){
+            // 同步写Redis，如果失败，不阻塞流程，靠binlog同步保障
+        }
+        return orderCreateAndConfirmRequest.getOrderId();
     }
 
     @NotNull
@@ -61,6 +80,11 @@ public class TradeServiceImpl implements TradeService {
         orderCreateAndConfirmRequest.setSellerId(goods.getSellerId());
         orderCreateAndConfirmRequest.setGoodsName(goods.getGoodsName());
         orderCreateAndConfirmRequest.setGoodsPicUrl(goods.getGoodsPicUrl());
+        orderCreateAndConfirmRequest.setSanpshotVersion(goods.getVersion());
+        orderCreateAndConfirmRequest.setOrderAmount(orderCreateAndConfirmRequest.getItemPrice().multiply(new BigDecimal(orderCreateAndConfirmRequest.getItemCount())));
+        orderCreateAndConfirmRequest.setOperator(UserType.PLATFORM.name());
+        orderCreateAndConfirmRequest.setOperatorType(UserType.PLATFORM);
+        orderCreateAndConfirmRequest.setOperateTime(new Date());
         return orderCreateAndConfirmRequest;
     }
 }
