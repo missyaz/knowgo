@@ -2,6 +2,7 @@ package com.fw.know.go.app;
 
 import com.fw.know.go.api.box.service.BlindBoxReadFacadeService;
 import com.fw.know.go.api.collections.service.CollectionReadFacadeService;
+import com.fw.know.go.api.goods.service.GoodsFacadeService;
 import com.fw.know.go.api.notice.service.NoticeFacadeService;
 import com.fw.know.go.api.user.service.UserFacadeService;
 import com.fw.know.go.box.domain.service.BlindBoxService;
@@ -31,6 +32,9 @@ public class BusinessDubboConfigration {
     @DubboReference(version = "1.0.0")
     private BlindBoxReadFacadeService blindBoxReadFacadeService;
 
+    @DubboReference(version = "1.0.0")
+    private GoodsFacadeService goodsFacadeService;
+
     @Bean
     @ConditionalOnMissingBean(name = "noticeFacadeService")
     public NoticeFacadeService noticeFacadeService(){
@@ -53,5 +57,11 @@ public class BusinessDubboConfigration {
     @ConditionalOnMissingBean(name = "collectionReadFacadeService")
     public CollectionReadFacadeService collectionReadFacadeService(){
         return collectionReadFacadeService;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(name = "goodsFacadeService")
+    public GoodsFacadeService goodsFacadeService(){
+        return goodsFacadeService;
     }
 }

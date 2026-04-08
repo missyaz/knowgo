@@ -14,7 +14,7 @@ import com.fw.know.go.order.OrderException;
  * @Date 7/4/2026 上午10:00
  * @Author Leo
  */
-public class BaseOrderCreateValidator implements OrderCreateValidator {
+public abstract class BaseOrderCreateValidator implements OrderCreateValidator {
 
     protected OrderCreateValidator nexValidator;
 

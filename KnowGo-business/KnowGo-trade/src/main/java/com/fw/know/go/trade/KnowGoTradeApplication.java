@@ -1,6 +1,7 @@
 package com.fw.know.go.trade;
 
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
@@ -11,4 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableDubbo
 @SpringBootApplication(scanBasePackages = "com.fw.know.go.trade")
 public class KnowGoTradeApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(KnowGoTradeApplication.class, args);
+    }
 }
