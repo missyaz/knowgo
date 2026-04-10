@@ -28,11 +28,6 @@
 
         <dependency>
             <groupId>com.fw</groupId>
-            <artifactId>KnowGo-order</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fw</groupId>
             <artifactId>KnowGo-web</artifactId>
         </dependency>
 

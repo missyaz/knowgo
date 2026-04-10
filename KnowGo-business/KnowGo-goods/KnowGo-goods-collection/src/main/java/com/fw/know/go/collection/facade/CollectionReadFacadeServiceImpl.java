@@ -32,7 +32,7 @@ public class CollectionReadFacadeServiceImpl implements CollectionReadFacadeServ
         }
         // TODO: 库存查询
 
-        CollectionVO collectionVO = CollectionConvertor.INSTANCE.mapToVo(collection);
+        CollectionVO collectionVO = CollectionConvertor.getInstance().mapToVo(collection);
         // TODO: 库存都先置为0
         collectionVO.setInventory(0L);
         collectionVO.setState(collection.getState(), collection.getSaleTime(), 0L);

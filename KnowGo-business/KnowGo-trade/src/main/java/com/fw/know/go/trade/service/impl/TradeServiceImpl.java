@@ -41,7 +41,7 @@ public class TradeServiceImpl implements TradeService {
 
     private final GoodsFacadeService goodsFacadeService;
 
-    private final OrderCreateValidator orderCreateValidatorChain;
+    private final OrderCreateValidator orderValidatorChain;
 
     private final TradeApplicationService tradeApplicationService;
 
@@ -49,7 +49,7 @@ public class TradeServiceImpl implements TradeService {
     public String normalBuy(BuyParam buyParam) {
         OrderCreateAndConfirmRequest orderCreateAndConfirmRequest = getOrderCreateAndConfirmRequest(buyParam);
         // 校验创建确认订单参数
-        orderCreateValidatorChain.validate(orderCreateAndConfirmRequest);
+        orderValidatorChain.validate(orderCreateAndConfirmRequest);
         OrderResponse orderResponse = RemoteCallWrapper.call(tradeApplicationService::normalBuy, orderCreateAndConfirmRequest,
                 "createOrder");
 

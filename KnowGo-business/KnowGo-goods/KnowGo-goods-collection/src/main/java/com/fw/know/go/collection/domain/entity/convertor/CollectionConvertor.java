@@ -20,7 +20,15 @@ import java.util.Date;
 @Mapper(nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface CollectionConvertor {
 
-    CollectionConvertor INSTANCE = Mappers.getMapper(CollectionConvertor.class);
+    class Holder {
+        static final CollectionConvertor INSTANCE = Mappers.getMapper(CollectionConvertor.class);
+    }
+
+    static CollectionConvertor getInstance() {
+        return Holder.INSTANCE;
+    }
+
+//    CollectionConvertor INSTANCE = Mappers.getMapper(CollectionConvertor.class);
 
     @Mapping(target = "inventory", source = "request.saleableInventory")
     @Mapping(target = "state", expression = "java(setState(request.getState(), request.getSaleTime(), request" +

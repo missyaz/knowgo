@@ -114,7 +114,7 @@ public class Collection extends BaseEntity {
     private Integer canBook;
 
     public static Collection create(CollectionCreateRequest request){
-        Collection collection = CollectionConvertor.INSTANCE.mapToEntity(request);
+        Collection collection = CollectionConvertor.getInstance().mapToEntity(request);
         collection.setOccupiedInventory(0L);
         collection.setSaleableInventory(request.getQuantity());
         collection.setState(CollectionStateEnum.INIT);

@@ -21,7 +21,7 @@ public class OrderCreateAndConfirmValidatorConfig {
     private final UserValidator userValidator;
 
     @Bean
-    public OrderCreateValidator createValidator(){
+    public OrderCreateValidator orderConfirmValidatorChain(){
         userValidator.setNext(goodsValidator);
         return userValidator;
     }

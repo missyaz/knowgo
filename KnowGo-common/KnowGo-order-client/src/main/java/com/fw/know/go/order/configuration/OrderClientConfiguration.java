@@ -4,6 +4,7 @@ import com.fw.know.go.api.goods.service.GoodsFacadeService;
 import com.fw.know.go.api.user.service.UserFacadeService;
 import com.fw.know.go.order.sharding.id.WorkerIdHolder;
 import com.fw.know.go.order.validator.GoodsValidator;
+import com.fw.know.go.order.validator.OrderCreateValidator;
 import com.fw.know.go.order.validator.UserValidator;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -34,5 +35,11 @@ public class OrderClientConfiguration {
     @Scope(value = BeanDefinition.SCOPE_PROTOTYPE)
     public UserValidator userValidator(UserFacadeService userFacadeService){
         return new UserValidator(userFacadeService);
+    }
+
+    @Bean
+    public OrderCreateValidator orderValidatorChain(UserValidator userValidator, GoodsValidator goodsValidator) {
+        userValidator.setNext(goodsValidator);
+        return userValidator;
     }
 }
