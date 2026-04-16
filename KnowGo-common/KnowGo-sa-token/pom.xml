@@ -28,9 +28,16 @@
             <version>1.45.0</version>
         </dependency>
 
+        <!-- Sa-Token 整合 Jackson -->
         <dependency>
             <groupId>cn.dev33</groupId>
-            <artifactId>sa-token-redisson</artifactId>
+            <artifactId>sa-token-jackson</artifactId>
+            <version>1.45.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-redis-template</artifactId>
             <version>1.45.0</version>
         </dependency>
 
