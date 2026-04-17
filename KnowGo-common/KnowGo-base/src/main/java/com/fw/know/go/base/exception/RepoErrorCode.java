@@ -6,6 +6,12 @@ package com.fw.know.go.base.exception;
  * @Author Leo
  */
 public enum RepoErrorCode implements ErrorCode {
+
+    /**
+     * 数据库插入失败
+     */
+    INSERT_FAILED("INSERT_FAILED", "数据库插入失败"),
+
     /**
      * 数据库更新失败
      */

@@ -10,9 +10,18 @@ import com.fw.know.go.base.exception.ErrorCode;
 public enum CollectionErrorCode implements ErrorCode {
 
     /**
+     * 藏品信息保存失败
+     */
+    COLLECTION_SAVE_FAILED("COLLECTION_SAVE_FAILED", "藏品信息保存失败"),
+
+    /**
      * 藏品不存在
      */
-    COLLECTION_NOT_EXIST("COLLECTION_NOT_EXIST", "藏品不存在"),;
+    COLLECTION_NOT_EXIST("COLLECTION_NOT_EXIST", "藏品不存在"),
+    /**
+     * 藏品流水信息保存失败
+     */
+    COLLECTION_STREAM_SAVE_FAILED("COLLECTION_STREAM_SAVE_FAILED", "藏品流水信息保存失败"),;
 
     private final String code;
 

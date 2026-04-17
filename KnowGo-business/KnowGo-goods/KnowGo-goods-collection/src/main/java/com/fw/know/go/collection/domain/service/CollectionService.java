@@ -1,6 +1,7 @@
 package com.fw.know.go.collection.domain.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.fw.know.go.api.goods.request.GoodsFreezeInventoryRequest;
 import com.fw.know.go.collection.domain.entity.Collection;
 
 /**
@@ -16,4 +17,11 @@ public interface CollectionService extends IService<Collection> {
      * @return 藏品
      */
     public Collection queryById(Long collectionId);
+
+    /**
+     * 冻结库存
+     * @param request 冻结库存请求
+     * @return true/false
+     */
+    public Boolean freezeInventory(GoodsFreezeInventoryRequest request);
 }

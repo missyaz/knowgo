@@ -282,6 +282,11 @@
                 <artifactId>KnowGo-order-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.fw</groupId>
+                <artifactId>KnowGo-tcc</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

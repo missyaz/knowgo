@@ -1,13 +1,11 @@
 package com.fw.know.go.order.domain.entity;
 
-import cn.hutool.core.util.StrUtil;
 import com.fw.know.go.api.goods.constant.GoodsType;
+import com.fw.know.go.api.order.constant.TradeOrderEvent;
 import com.fw.know.go.api.order.constant.TradeOrderState;
-import com.fw.know.go.api.order.request.OrderCreateRequest;
 import com.fw.know.go.api.pay.constant.PayChannel;
 import com.fw.know.go.api.user.constant.UserType;
 import com.fw.know.go.datasource.domain.entity.BaseEntity;
-import com.fw.know.go.order.domain.entity.convertor.TradeOrderConvertor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,12 +19,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class TradeOrder extends BaseEntity {
-
-    /**
-     * 默认超时时间，30分钟
-     */
-    public static final int DEFAULT_TIME_OUT_MINUTES = 30;
+public class TradeOrderStream extends BaseEntity {
 
     /**
      * 订单ID
@@ -37,11 +30,6 @@ public class TradeOrder extends BaseEntity {
      * 买家ID
      */
     private String buyerId;
-
-    /**
-     * 买家 ID 的逆序
-     */
-    private String reverseBuyerId;
 
     /**
      * 买家类型
@@ -144,17 +132,42 @@ public class TradeOrder extends BaseEntity {
     private String closeType;
 
     /**
-     * 快照版本
+     * 流水类型
      */
-    private Integer snapshotVersion;
+    private TradeOrderEvent streamType;
 
-    public static TradeOrder createOrder(OrderCreateRequest request){
-        TradeOrder tradeOrder = TradeOrderConvertor.INSTANCE.mapToEntity(request);
-        tradeOrder.setReverseBuyerId(StrUtil.reverse(request.getBuyerId()));
-        tradeOrder.setOrderState(TradeOrderState.CREATE);
-        tradeOrder.setPaidAmount(BigDecimal.ZERO);
-        String orderId = request.getOrderId();
-        tradeOrder.setOrderId(orderId);
-        return tradeOrder;
+    /**
+     * 操作幂等号
+     */
+    private String streamIdentifier;
+
+    public TradeOrderStream(TradeOrder tradeOrder, TradeOrderEvent streamType, String streamIdentifier) {
+        this.orderId = tradeOrder.getOrderId();
+        this.buyerId = tradeOrder.getBuyerId();
+        this.buyerType = tradeOrder.getBuyerType();
+        this.sellerId = tradeOrder.getSellerId();
+        this.sellerType = tradeOrder.getSellerType();
+        this.identifier = tradeOrder.getIdentifier();
+        this.orderAmount = tradeOrder.getOrderAmount();
+        this.paidAmount = tradeOrder.getOrderAmount();
+        this.paySucceedTime = tradeOrder.getPaySucceedTime();
+        this.orderConfirmedTime = tradeOrder.getOrderConfirmedTime();
+        this.orderFinishedTime = tradeOrder.getOrderFinishedTime();
+        this.orderClosedTime = tradeOrder.getOrderClosedTime();
+        this.goodsId = tradeOrder.getGoodsId();
+        this.goodsType = tradeOrder.getGoodsType();
+        this.goodsName = tradeOrder.getGoodsName();
+        this.goodsPicUrl = tradeOrder.getGoodsPicUrl();
+        this.payChannel = tradeOrder.getPayChannel();
+        this.payStreamId = tradeOrder.getPayStreamId();
+        this.orderState = tradeOrder.getOrderState();
+        this.closeType = tradeOrder.getCloseType();
+        super.setLockVersion(tradeOrder.getLockVersion());
+        super.setDeleted(tradeOrder.getDeleted());
+        this.itemCount = tradeOrder.getItemCount();
+        this.itemPrice = tradeOrder.getItemPrice();
+        this.streamType = streamType;
+        this.streamIdentifier = streamIdentifier;
     }
+
 }

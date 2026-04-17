@@ -35,6 +35,10 @@ public enum OrderErrorCode implements ErrorCode {
      */
     BUYER_NOT_AUTH("BUYER_NOT_AUTH", "买家未完成实名认证"),
 
+    /**
+     * 创建订单失败
+     */
+    CREATE_ORDER_FAILED("CREATE_ORDER_FAILED", "创建订单失败"),
     ;
 
     private final String code;

@@ -45,5 +45,10 @@
             <groupId>com.fw</groupId>
             <artifactId>KnowGo-rpc</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.fw</groupId>
+            <artifactId>KnowGo-tcc</artifactId>
+        </dependency>
     </dependencies>
 </project>

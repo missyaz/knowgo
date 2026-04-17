@@ -11,4 +11,11 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface CollectionMapper extends BaseMapper<Collection> {
+    /**
+     * 冻结库存
+     * @param collectionId 藏品ID
+     * @param quantity 冻结数量
+     * @return 冻结成功数量
+     */
+    int freezeInventory(Long collectionId, Integer quantity);
 }

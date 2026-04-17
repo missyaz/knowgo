@@ -1,6 +1,7 @@
 package com.fw.know.go.box.domain.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.fw.know.go.api.goods.request.GoodsFreezeInventoryRequest;
 import com.fw.know.go.box.domain.entity.BlindBox;
 
 /**
@@ -16,4 +17,11 @@ public interface BlindBoxService extends IService<BlindBox> {
      * @return 盲盒信息
      */
     BlindBox queryId(Long blindBoxId);
+
+    /**
+     * 冻结库存
+     * @param request 冻结库存请求
+     * @return true/false
+     */
+    public Boolean freezeInventory(GoodsFreezeInventoryRequest request);
 }

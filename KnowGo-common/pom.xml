@@ -28,6 +28,7 @@
         <module>KnowGo-vector</module>
         <module>KnowGo-limiter</module>
         <module>KnowGo-order-client</module>
+        <module>KnowGo-tcc</module>
     </modules>
 
     <properties>
